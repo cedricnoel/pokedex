@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+<!-- script src="../src/core/router-new.js"></script -->
+<script>
+    var router = {
+        'config': {
+            'location': window.location,
+            'uri': window.location.pathname,
+            'routes': [],
+            'root': '/project/public/',
+            'documentRoot': 'root',
+            'rootHandler': null,
+        },
+
+        'add': (path, handler) => {
+            if (typeof path !== 'string' || typeof handler !== 'function') {
+                return false
+            }
+
+            router.config.routes.push({path: router.toRegex(path), handler: handler})
+
+            return router
+        },
+
+        'setRoot': (path, id, handler) => {
+            if (typeof path !== 'string' || typeof handler !== 'function') {
+                return false
+            }
+
+            router.config.root = path
+            router.config.documentRoot = id
+            router.config.rootHandler = handler
+
+            return router
+        },
+
+        'toRegex': (path) => {
+            if (typeof path !== 'string') {
+                return false
+            }
+
+            regex = new RegExp(path.replace(/:([\w]+)/gm, '([^/]+)'), 'gm')
+
+            return regex
+        },
+
+        'dispatch': () => {
+            if (router.config.uri == router.config.root) {
+                return router.config.rootHandler()
+            }
+
+            for (var i = 0; i < router.config.routes.length; i++) {
+                let m = router.config.routes[i].path.exec( router.config.root + router.config.uri )
+
+                if (m !== null) {
+                    let params = []
+
+                    if (m.length <= 1) {
+                        return router.config.routes[i].handler()
+                    }
+
+                    for (var j = 1; j < m.length; j++) {
+                        params.push(m[j])
+                    }
+
+                    return router.config.routes[i].handler(params)
+                }
+            }
+
+            return false
+        }
+    }
+
+    router.setRoot('/project/public/', 'root', () => {
+        let p = document.createElement("p")
+        p.innerText = 'Root wesh !'
+
+        document.getElementById('root').appendChild(p)
+    }).add('about/', () => {
+        let p = document.createElement("p")
+        p.innerText = 'About !'
+
+        document.getElementById('root').appendChild(p)
+    }).add('products/:slug/:id', (e) => {
+        let p1 = document.createElement("p")
+        p1.innerText = 'Slug: ' + e[0]
+
+        let p2 = document.createElement("p")
+        p2.innerText = 'Id: ' + e[1]
+
+        document.getElementById('root').appendChild(p1)
+        document.getElementById('root').appendChild(p2)
+    }).dispatch()
+</script>
+</html>
