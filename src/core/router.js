@@ -1,23 +1,38 @@
-function Router()
-{
-    this.config = {
-        'location': window.location,
-        'uri': window.location.pathname,
+var router = {
+    config: {
         'routes': [],
-        'root': '/'
-    }
+        'root': '/',
+        'documentRoot': 'root',
+        'rootHandler': null,
+    },
 
-    this.add = (path, handler) => {
+    add: (path, handler) => {
         if (typeof path !== 'string' || typeof handler !== 'function') {
             return false
         }
 
-        this.config.routes.push({path: this.toRegex(path), handler: handler})
+        router.config.routes.push({path: router.toRegex(path), handler: handler})
 
-        return this
-    }
+        return router
+    },
 
-    this.toRegex = (path) => {
+    getUri: () => {
+        return window.location.pathname
+    },
+
+    setRoot: (path, id, handler) => {
+        if (typeof path !== 'string' || typeof handler !== 'function') {
+            return false
+        }
+
+        router.config.root = window.location.origin + path
+        router.config.documentRoot = id
+        router.config.rootHandler = handler
+
+        return router
+    },
+
+    toRegex: (path) => {
         if (typeof path !== 'string') {
             return false
         }
@@ -25,59 +40,55 @@ function Router()
         regex = new RegExp(path.replace(/:([\w]+)/gm, '([^/]+)'), 'gm')
 
         return regex
-    }
+    },
 
-    this.dispatch = () => {
-        if (this.config.uri == this.config.root) {
-            console.log('root')
-
-            return true
+    forward: (path) => {
+        if (typeof path !== 'string') {
+            return false
         }
 
-        for (var i = 0; i < this.config.routes.length; i++) {
-            let m = this.config.routes[i].path.exec( this.config.root + this.config.uri )
+        window.location.href = window.location.href.replace(/#(.*)$/, '') + path
+    },
+
+    navigate: (path) => {
+        if (typeof path !== 'string') {
+            return false
+        }
+
+        history.pushState({foo: 'bar'}, "page 2", router.config.root + path);
+
+        router.dispatch()
+
+        return router;
+    },
+
+    dispatch: () => {
+        let uri = router.getUri()
+
+        console.log(router.config.root)
+
+        if (window.location.href == router.config.root) {
+            return router.config.rootHandler()
+        }
+
+        for (var i = 0; i < router.config.routes.length; i++) {
+            let m = router.config.routes[i].path.exec( router.config.root + uri )
 
             if (m !== null) {
                 let params = []
 
                 if (m.length <= 1) {
-                    return this.config.routes[i].handler()
+                    return router.config.routes[i].handler()
                 }
 
                 for (var j = 1; j < m.length; j++) {
                     params.push(m[j])
                 }
 
-                return this.config.routes[i].handler(params)
+                return router.config.routes[i].handler(params)
             }
         }
 
         return false
     }
-
-    this.logRoutes = () => {
-        console.log(this.config.routes)
-
-        return this
-    }
-
-    this.logConfig = () => {
-        console.log(this.config)
-
-        return this
-    }
 }
-
-/**
-let router = new Router()
-
-router.add('about/', () => {
-    console.log('about')
-}).add('products/:slug/:id', (e) => {
-    console.log('success !!', e)
-    console.log('Slug: ' + e[0])
-    console.log('Id: ' + e[1])
-}).dispatch()
-
-router.logRoutes().logConfig()
-*/
