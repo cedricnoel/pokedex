@@ -50,19 +50,21 @@ function extractString(body, index){
     let param = [];
     try {
 
-        let regex = "[a-z.]";
+        let regex = /[a-z.]/;
 
         //Check the the end of interpolation
         while( (body.length - index > 0)){
             if(body[index] == "}" && body[index + 1] == "}"){
                 return new interpolation( param.toString().replace(new RegExp(",", "g"),""), position, size);
-            }else if(regex.exec()){
-                
+            }else if(regex.exec(body[index])){
+                //If regex is valid i.e it's an alphanumerical
+                //Add each char as long as there is no end
+                param.push(body[index]);
+                index++;
+                size++;
+            }else{
+                return false;
             }
-            //Add each char as long as there is no end
-            param.push(body[index]);
-            index++;
-            size++;
         }
     } catch (error) {
         throw error;
