@@ -1,4 +1,6 @@
-router.setRoot('/project/public/', 'root', () => {
+const router = new Router()
+
+router.setRoot('/public/', 'root', () => {
     let p = document.createElement("p")
     p.innerText = 'Root wesh !'
 
