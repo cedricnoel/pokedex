@@ -1,4 +1,4 @@
-var router = {
+let router = {
     config: {
         'routes': [],
         'root': '/',
@@ -11,7 +11,7 @@ var router = {
             return false
         }
 
-        router.config.routes.push({path: router.toRegex(path), handler: handler})
+        router.config.routes.push({path: Router.toRegex(path), handler: handler})
 
         return router
     },
@@ -63,11 +63,11 @@ var router = {
     },
 
     dispatch: () => {
-        let uri = router.getUri()
+        let uri = Router.getUri()
 
         console.log(router.config.root)
 
-        if (window.location.href == router.config.root) {
+        if (window.location.href === router.config.root) {
             return router.config.rootHandler()
         }
 
