@@ -9,7 +9,7 @@ class Router
         }
     }
 
-    setRoo(path, id, handler) {
+    setRoot(path, id, handler) {
         if (typeof path !== 'string' || typeof handler !== 'function') {
             throw new Error("Wrong argument type")
         }
@@ -40,7 +40,7 @@ class Router
             throw new Error("Wrong argument type")
         }
 
-        regex = new RegExp(path.replace(/:([\w]+)/gm, '([^/]+)'), 'gm')
+        let regex = new RegExp(path.replace(/:([\w]+)/gm, '([^/]+)'), 'gm')
 
         return regex
     }
