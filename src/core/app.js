@@ -33,7 +33,7 @@ for(i = 0; i < 151; i++) {
         pokemonType = '<span class="badge">' + pokemonType1 + '</span>' + '<span class="badge">' + pokemonType2 + '</span>';
     }
 
-    divPokemon = '<div class="col-md-2" id="' + pokemonName + '" onmouseover="' + onHover + '">' 
+    divPokemon = '<div class="col-md-2 pokemon" id="' + pokemonName + '" onmouseover="' + onHover + '" pokemon="' + pokemonName + '">'
     + '<p>#' + i + ' ' + pokemonName + '</p> ' 
     + '<p><img src="' + pokemonFrontSprite + '" alt="' + pokemonName + '"></p>'
     + '<span class="badge badge-secondary">' + pokemonType + '</span>'

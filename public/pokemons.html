@@ -9,10 +9,47 @@
 </head>
 <body>
     <div class="container text-center">
-            <h1>Pokédex</h1>
-            <hr>
-            <div id="pokemons" class="row"></div>
+        <h1>Pokédex</h1>
+        <hr>
+            <input type="text" name="pokemonName" id="pokemonName" onkeyup="filter()">
+        <hr>
+        <div id="pokemons" class="row"></div>
     </div>
 </body>
 <script src="../src/core/app.js"></script>
+<script>
+    function filter()
+    {
+        let input = document.getElementById("pokemonName");
+        let filter = input.value.toUpperCase();
+        let elements = getAllElementsWithAttribute('pokemon');
+
+        for (let i = 0; i < elements.length; i++) {
+            pokemonName = elements[i].getAttribute('pokemon').toUpperCase();
+
+            if (pokemonName.indexOf(filter) > -1) {
+                elements[i].style.display = "";
+            } else {
+                elements[i].style.display = 'none';
+            }
+        }
+    }
+
+    function getAllElementsWithAttribute(attribute)
+    {
+        let matchingElements = [];
+        let allElements = document.getElementsByTagName('*');
+
+        for (let i = 0, n = allElements.length; i < n; i++)
+        {
+            if (allElements[i].getAttribute(attribute) !== null)
+            {
+                matchingElements.push(allElements[i]);
+            }
+        }
+        return matchingElements;
+    }
+
+    filter()
+</script>
 </html>
