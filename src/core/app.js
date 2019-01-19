@@ -24,21 +24,22 @@ for(i = 0; i < 151; i++) {
     pokemonFrontSprite = pokemons[i].sprite_front_url;
     pokemonBackSprite = pokemons[i].sprite_back_url;
     pokemonType1 = pokemons[i].type[0].type.name;
-    pokemonType = '<span class="badge">' + pokemonType1 + '</span>';
+    pokemonType = '<span class="badge badge-secondary">' + pokemonType1 + '</span>';
     pokemonType2 = undefined;
-    onHover = 'onHover()';
+
     if (pokemons[i].type[1] != undefined)
     {
         pokemonType2 = pokemons[i].type[1].type.name;
-        pokemonType = '<span class="badge">' + pokemonType1 + '</span>' + '<span class="badge">' + pokemonType2 + '</span>';
+        pokemonType = '<span class="badge badge-secondary">' + pokemonType1 + '</span>' + '<span class="badge badge-secondary">' + pokemonType2 + '</span>';
     }
 
-    divPokemon = '<div class="col-md-2 pokemon" id="' + pokemonName + '" onmouseover="' + onHover + '" pokemon="' + pokemonName + '">'
-    + '<p>#' + i + ' ' + pokemonName + '</p> ' 
-    + '<p><img src="' + pokemonFrontSprite + '" alt="' + pokemonName + '"></p>'
-    + '<span class="badge badge-secondary">' + pokemonType + '</span>'
-    + '<hr>'
-    + '</div>';
+    pokemonDiv = document.createElement('div');
+    pokemonDiv.className = "col-md-2";
+    pokemonDiv.id = pokemonName;
+    pokemonDiv.innerHTML += '<p>#'+ i + ' ' + pokemonName + '</p>';
+    pokemonDiv.innerHTML += '<p><img src="' + pokemonFrontSprite + '" alt="' + pokemonName + '"></p>';
+    pokemonDiv.innerHTML += pokemonType;
+    pokemonDiv.innerHTML += '<hr>';
 
-    divPokemons.innerHTML += divPokemon;
+    divPokemons.append(pokemonDiv);
 }
