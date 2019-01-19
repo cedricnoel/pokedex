@@ -10,6 +10,11 @@
     <div id="root">
         {{pokemon.name}} - <span class="badge badge-primary">{{pokemon.id}}</span>
         <img src="{{pokemon.sprites.front_default}}" alt="">
+        {{pokemon.stats[0].base_stat}}
+        {{pokemon.stats[3].base_stat}}
+
+        <hr>
+        {{pokemon.game_indices[0].version.name}}
     </div>
 </body>
 <script src="../src/core/interpolate.js"></script>

@@ -29,9 +29,10 @@ class interpolation {
      */
     static interpolate(){
         for(let i = 0; i < interpolation_list.length; i++){
+
             if(this.checkInterpoliation(interpolation_list[i])){
                 //Replace
-                if(interpolation_list[i].value){
+                if(interpolation_list[i].value && !Array.isArray(interpolation_list[i].value)){
                     document.body.innerHTML = document.body.innerHTML.replace("{{" + interpolation_list[i].expression + "}}", interpolation_list[i].value);
                 }
             }else{
@@ -57,6 +58,17 @@ class interpolation {
             let obj = eval(attribut[0]);
             //Take the rest of the string as array attribut
             let args = attribut.slice(1)
+            if(Array.isArray(args) && args[0].indexOf("[") > -1 && args[0].indexOf("]")){
+                var index = args[0].substring(
+                    args[0].lastIndexOf("[") + 1, 
+                    args[0].lastIndexOf("]")
+                );
+                var temp_args = args[0].substring(
+                   0, args[0].lastIndexOf("[")
+                );
+                obj = obj[temp_args][index];
+                args.shift();
+            }
             return hasProperty(obj, args);
         }else{
             return false;
@@ -66,6 +78,7 @@ class interpolation {
         function hasProperty(obj, args){
             for (var i = 0; i < args.length; i++) {
                 if (!obj || !obj.hasOwnProperty(args[i])) {
+                   
                     return false;
                 }
                 obj = obj[args[i]];
@@ -89,7 +102,7 @@ class interpolation {
 
         try {
             //If regex is valid i.e it's an alphanumerical
-            let regex = /[a-z._]/;
+            let regex = /[0-9a-z._[\]]/;
             //Check the the end of interpolation
             while( (body.length - index > 0)){
                 if(body[index] == "}" && body[index + 1] == "}"){
