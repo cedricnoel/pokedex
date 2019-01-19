@@ -7,15 +7,14 @@ class pokemon{
         this.image = image;
     }
     
-    addPokemonToLocalStorage(pokemon){
-        if(!localStorage.getItem("pokemon-"+pokemon.name)){
-            localStorage.setItem("pokemon-"+pokemon.name, JSON.stringify(pokemon));
+    addPokemonToLocalStorage(){
+        if(!localStorage.getItem("pokemon-"+this.name)){
+            localStorage.setItem("pokemon-"+this.name, JSON.stringify(this));
             error.innerHTML = "";
-            console.log(pokemon.name + " has been added");
+            console.log(this.name + " has been added");
         }else{
-            
-            error.innerHTML = pokemon.name + " already exist !";
-            console.log(pokemon.name + " already exist !");
+            error.innerHTML = this.name + " already exist !";
+            console.log(this.name + " already exist !");
         }
     }
 
@@ -24,6 +23,12 @@ class pokemon{
             localStorage.removeItem("pokemon-"+name);
         }
     }
+
+    getPokemonsFromLocalStorage(){
+        for (var a in localStorage) {
+            console.log(a, ' = ', localStorage[a]);
+         }
+    }
 }
 
 var newPokemonForm = document.getElementsByName("newPokemon")[0];
@@ -31,25 +36,28 @@ var error = document.getElementById("error");
 
 newPokemonForm.addEventListener("submit", function(e){
     var image = document.getElementById("image").files[0];
-    var newPokemon = new pokemon(null, e.target.name.value,e.target.name.type,null);
-    newPokemon.image = storeImage(image, newPokemon.name);
-    pokemon.addPokemonToLocalStorage(newPokemon);
-    e.preventDefault();
+    storeImage(image, e.target.name)
+        .then(function(res){
+            var newPokemon = new pokemon(null, e.target.name.value,e.target.name.type, res);
+            console.log(newPokemon);
+            newPokemon.addPokemonToLocalStorage();
+            e.preventDefault();
+        })
 })
 
 function storeImage(image, name){
-    var imgUrl;
-    var reader = new FileReader();  
-    reader.onload = function(e) {
-      var imgURL = reader.result;
-      try {
-        localStorage.setItem("pokemon-"+name+"-url", imgURL);
-        return "pokemon-"+name+"-url";
-    }
-    catch (e) {
-        console.log("Storage failed: " + e);
-    }
-      saveDataToLocalStorage(imgURL);
-    }
-    reader.readAsDataURL(image);
+    return new Promise(function(resolve,reject){
+        var imgUrl;
+        var reader = new FileReader();  
+        reader.onload = function(e) {
+            var imgURL = reader.result;
+            if(imgURL){
+                resolve(imgURL);
+            }else{
+                reject("Echec");
+            }
+        }
+        reader.readAsDataURL(image);
+    })
+    
 }
