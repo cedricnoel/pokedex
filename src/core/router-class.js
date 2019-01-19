@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Router class
  *
@@ -22,9 +24,9 @@ class Router {
     /**
      * Set router root
      *
-     * @param {string}   path    [description]
-     * @param {string}   id      [description]
-     * @param {function} handler [description]
+     * @param {string}   path    Route path
+     * @param {string}   id      Route name
+     * @param {function} handler Function to execute on match
      *
      * @return {Router} Router
      */
@@ -43,7 +45,7 @@ class Router {
     /**
      * Add a route
      *
-     * @param {string} path    Route path
+     * @param {string}   path    Route path
      * @param {function} handler Handler of the route
      *
      * @return {Router} Router
@@ -58,7 +60,7 @@ class Router {
             'handler': handler
         });
 
-        return this
+        return this;
     }
 
     /**
@@ -97,7 +99,9 @@ class Router {
             throw new Error("Wrong argument type");
         }
 
-        history.pushState({foo: 'bar'}, "page 2", this.config.root + path);
+        history.pushState({
+            foo: 'bar'
+        }, "page 2", this.config.root + path);
 
         this.dispatch();
 
@@ -114,7 +118,7 @@ class Router {
             throw new Error("Wrong argument type");
         }
 
-        window.location.href = window.location.href.replace(/#(.*)$/, '') + path
+        window.location.href = window.location.href.replace(/#(.*)$/, '') + path;
     }
 
     /**
@@ -138,13 +142,13 @@ class Router {
                 }
 
                 for (let j = 1; j < m.length; j++) {
-                    params.push(m[j])
+                    params.push(m[j]);
                 }
 
-                return this.config.routes[i].handler(params)
+                return this.config.routes[i].handler(params);
             }
         }
 
-        return false
+        return false;
     }
 }
