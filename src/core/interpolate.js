@@ -29,7 +29,7 @@ document.onreadystatechange = function () {
  */
 function detect(){
     body = document.getElementsByTagName("body")[0];
-    body = body.outerHTML;
+    body = body.outerHTML.replace(/\s/g, '');
     for(var i = 0; i < body.length; i++){
         if(body[i] == '{' && body[i+1] == '{'){
             //Add the expression and the position of the first interpolation
@@ -43,6 +43,7 @@ function detect(){
  * @description Replace the interpolation by the value
  */
 function interpolate(){
+    console.log(interpolation_list);
     for(var i=0;i<interpolation_list.length;i++){
         if(checkInterpoliation(interpolation_list[i])){
             //Replace
@@ -103,7 +104,7 @@ function extractString(body, index){
     var size= 4;
     var param = [];
     try {
-         //If regex is valid i.e it's an alphanumerical 
+         //regex is valid if it's an alphanumerical 
         var regex = /[a-z.]/;
         //Check the the end of interpolation
         while( (body.length - index > 0)){
