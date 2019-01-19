@@ -9,6 +9,7 @@
 <body>
     <div id="root">
         {{pokemon.name}} - <span class="badge badge-primary">{{pokemon.id}}</span>
+        <img src="{{pokemon.sprites.front_default}}" alt="">
     </div>
 </body>
 <script src="../src/core/interpolate.js"></script>
@@ -19,7 +20,7 @@
 
     if (req.status === 200) {
         var pokemon = JSON.parse(req.responseText);
-
+        console.log(pokemon);
         interpolation.detect()
     } else {
         console.log("Status de la réponse: %d (%s)", req.status, req.statusText);

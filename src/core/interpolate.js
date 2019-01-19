@@ -89,7 +89,7 @@ class interpolation {
 
         try {
             //If regex is valid i.e it's an alphanumerical
-            let regex = /[a-z.]/;
+            let regex = /[a-z._]/;
             //Check the the end of interpolation
             while( (body.length - index > 0)){
                 if(body[index] == "}" && body[index + 1] == "}"){
