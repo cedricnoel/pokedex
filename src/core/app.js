@@ -34,6 +34,7 @@ for(i = 0; i < 151; i++) {
     }
 
     pokemonDiv = document.createElement('div');
+    pokemonDiv.setAttribute('pokemon', pokemonName);
     pokemonDiv.className = "col-md-2";
     pokemonDiv.id = pokemonName;
     pokemonDiv.innerHTML += '<p>#'+ i + ' ' + pokemonName + '</p>';
