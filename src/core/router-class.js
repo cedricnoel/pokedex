@@ -177,7 +177,11 @@ class Router {
             document.getElementById('root').innerHTML = '';
             document.getElementById('root').innerHTML = value;
 
-            app = data;
+            if (data.pokemon) {
+                app = data.pokemon;
+            } else {
+                app = data;
+            }
 
             setTimeout(function () {
                 interpolation.detect();
