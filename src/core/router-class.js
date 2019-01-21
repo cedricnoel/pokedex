@@ -35,7 +35,7 @@ class Router {
             throw new Error("Wrong argument type");
         }
 
-        this.config.root = window.location.origin + path;
+        this.config.root = path;
         this.config.documentRoot = id;
         this.config.rootHandler = handler;
 
@@ -127,7 +127,7 @@ class Router {
     dispatch() {
         let uri = Router.getUri();
 
-        if (window.location.href === this.config.root) {
+        if (uri === this.config.root) {
             return this.config.rootHandler()
         }
 
@@ -150,5 +150,33 @@ class Router {
         }
 
         return false;
+    }
+
+    /**
+     *
+     * @param {string} path
+     * @param {object} data
+     */
+    loadTemplate(path, data = {}) {
+        var promise = new Promise((resolve, reject) => {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onload = function() {
+                if (this.readyState === 4 && this.status === 200) {
+                    resolve(this.responseText);
+                } else {
+                    reject('nique');
+                }
+            };
+            xhttp.open("GET", 'http://localhost:8888/project/src/views/' + path, true);
+            xhttp.send();
+        });
+
+        promise.then((value) => {
+            document.getElementById('root').innerHTML = '';
+            document.getElementById('root').innerHTML = value;
+
+            var routeParams = data;
+            detect();
+        });
     }
 }

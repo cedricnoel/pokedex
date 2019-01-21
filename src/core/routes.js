@@ -1,27 +1,14 @@
 /** @type Router */
 const router   = new Router();
-/** @type Renderer */
-const renderer = new Renderer();
 
 router.setRoot('/project/public/', 'root', () => {
-    renderer.loadTemplate('index.html', {
-        'test': 'Interpolation'
+    router.loadTemplate('index.html', {
+        'message': 'Hello world'
     });
 }).add('about/', () => {
-    let p = document.createElement("p");
-    p.innerText = 'About !';
-
-    let b = document.createElement('button');
-    b.innerText = 'Go to Home';
-    b.onclick = () => {
-        router.navigate('');
-    };
-
-    let root = document.getElementById('root');
-    root.innerHTML = '';
-
-    root.appendChild(p);
-    root.appendChild(b);
+    router.loadTemplate('about.html', {
+        'message': 'Hello world'
+    });
 }).add('products/:slug/:id', (e) => {
     let p1 = document.createElement("p");
     p1.innerText = 'Slug: ' + e[0];
