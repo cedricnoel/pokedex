@@ -99,7 +99,6 @@ class interpolation {
         //Start size with 4 because of the double interpolation
         let size= 4;
         let param = [];
-
         try {
             //If regex is valid i.e it's an alphanumerical
             let regex = /[0-9a-z._[\]]/;
@@ -115,6 +114,7 @@ class interpolation {
                 }else{
                     return false;
                 }
+
             }
         } catch (error) {
             throw error;
