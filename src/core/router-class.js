@@ -176,7 +176,9 @@ class Router {
             document.getElementById('root').innerHTML = value;
 
             var routeParams = data;
-            detect();
+            setTimeout(function(){
+                interpolation.detect();
+            })
         });
     }
 }
