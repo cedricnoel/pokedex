@@ -47,7 +47,7 @@ function storeImage(image, name){
             }else{
                 reject("Echec");
             }
-        };
+        }
         reader.readAsDataURL(image);
     })
 }
@@ -72,7 +72,7 @@ function getPokemonsFromLocalStorage(){
                     localStorage.removeItem("pokemon-"+pokemon.name);
                     location.reload();
                 }
-            });
+            })
             h4.innerHTML = pokemon.name;
             p.innerHTML = pokemon.type;
             image.src = pokemon.image;
