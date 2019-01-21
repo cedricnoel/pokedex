@@ -6,9 +6,7 @@ router.setRoot('/project/public/', 'root', () => {
         'message': 'Hello world'
     });
 }).add('about/', () => {
-    router.loadTemplate('about.html', {
-        'message': 'Hello world'
-    });
+    router.loadTemplate('about.html');
 }).add('products/:slug/:id', (e) => {
     let p1 = document.createElement("p");
     p1.innerText = 'Slug: ' + e[0];

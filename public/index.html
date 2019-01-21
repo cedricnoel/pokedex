@@ -11,28 +11,11 @@
         <!-- Content append here -->
     </div>
 </body>
-<script>
-    /**
-    var promise = new Promise((resolve, reject) => {
-        var xhttp = new XMLHttpRequest();
-        xhttp.onload = function() {
-            if (this.readyState === 4 && this.status === 200) {
-                resolve(this.responseText)
-            } else {
-                reject('nique')
-            }
-        };
-        xhttp.open("GET", 'http://localhost:8888/project/src/views/index.html', true);
-        xhttp.send();
-    });
-
-    promise.then((value) => {
-        document.getElementById('root').innerHTML = value
-    });
-    */
-</script>
 <script src="../src/core/router-class.js"></script>
 <script src="../src/core/renderer.js"></script>
 <script src="../src/core/routes.js"></script>
 <script src="../src/core/interpolate.js"></script>
+<script>
+    var app = {};
+</script>
 </html>

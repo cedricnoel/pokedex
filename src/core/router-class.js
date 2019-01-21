@@ -90,18 +90,19 @@ class Router {
     /**
      * Navigation is used by usr to navigate in the app
      *
-     * @param  {string} path - Path where to navigate
+     * @param {string} path  Path where to navigate
+     * @param {string} title Title of the page
      *
      * @return {Router} Router object
      */
-    navigate(path) {
+    navigate(path, title = "ma page") {
         if (typeof path !== 'string') {
             throw new Error("Wrong argument type");
         }
 
         history.pushState({
             foo: 'bar'
-        }, "page 2", this.config.root + path);
+        }, title, this.config.root + path);
 
         this.dispatch();
 
@@ -111,7 +112,7 @@ class Router {
     /**
      * Forward the user
      *
-     * @param {string} path [description]
+     * @param {string} path
      */
     static forward(path) {
         if (typeof path !== 'string') {
@@ -153,6 +154,7 @@ class Router {
     }
 
     /**
+     * Load specific template
      *
      * @param {string} path
      * @param {object} data
@@ -160,7 +162,7 @@ class Router {
     loadTemplate(path, data = {}) {
         var promise = new Promise((resolve, reject) => {
             var xhttp = new XMLHttpRequest();
-            xhttp.onload = function() {
+            xhttp.onload = function () {
                 if (this.readyState === 4 && this.status === 200) {
                     resolve(this.responseText);
                 } else {
@@ -175,8 +177,9 @@ class Router {
             document.getElementById('root').innerHTML = '';
             document.getElementById('root').innerHTML = value;
 
-            var routeParams = data;
-            setTimeout(function(){
+            app = data;
+
+            setTimeout(function () {
                 interpolation.detect();
             })
         });
