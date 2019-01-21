@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Pokemons</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container text-center">
+            <h1>Pokédex</h1>
+            <hr>
+            <div id="error">
+
+                </div>
+            <form name="addTeam">
+                <label for="name"></label>
+                <input type="text" id="name" name="name" placeholder="name">
+            <div id="pokemons" class="row"></div>
+            <button class="btn btn-primary">Créer ma team</button>
+        </form>
+    </div>
+</body>
+<script src="../../src/core/Pokemon.js"></script>
+<script src="../../src/core/app.js"></script>
+</html>

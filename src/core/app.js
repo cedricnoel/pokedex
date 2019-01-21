@@ -14,9 +14,7 @@ for(i = 0; i < results.length; i++) {
    pokemon = request.open('GET', 'https://pokeapi.co/api/v2/pokemon/' + results[i].name +'/', false);
    request.send();
    pokemon = JSON.parse(request.response);
-
-   console.log(pokemon.sprites);
-
+   pokemons[i]['id'] = pokemon.id;
    pokemons[i]['sprite_front_url'] = pokemon.sprites.front_default;
    pokemons[i]['sprite_back_url'] = pokemon.sprites.back_default;
    pokemons[i]['type'] = pokemon.types;
@@ -49,6 +47,11 @@ for(i = 0; i < results.length; i++) {
     pokemonDiv.append(pokemonImg);
     pokemonDiv.append(pokemonBackImg);
     pokemonDiv.innerHTML += '<p>#'+ i + ' ' + pokemonName + '</p>';
+    pokemonDiv.innerHTML += '<p><img src="' + pokemonFrontSprite + '" alt="' + pokemonName + '"></p>';
+    pokemonDiv.innerHTML += pokemonType;addTeam
+    /* Only for create team page */
+    pokemonDiv.innerHTML += '<label for=""></label><input type="checkbox" onClick="addPokemonToTeam(this)" data-id="' + pokemons[i].id +'" id="checkbox-' + pokemons[i].id + '" class="add-team-checkbox"/>';
+
     pokemonDiv.innerHTML += pokemonType;
     pokemonDiv.innerHTML += '<hr>';
     pokemonsDiv[i] = pokemonDiv;
