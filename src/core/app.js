@@ -1,5 +1,5 @@
 var request = new XMLHttpRequest();
-request.open('GET', 'https://pokeapi.co/api/v2/pokemon?limit=10', /* async = */ false);
+request.open('GET', 'https://pokeapi.co/api/v2/pokemon?limit=20', /* async = */ false);
 request.send();
 var response = JSON.parse(request.response);
 var results = response.results;
@@ -13,13 +13,13 @@ for(i = 0; i < results.length; i++) {
    pokemon = request.open('GET', 'https://pokeapi.co/api/v2/pokemon/' + results[i].name +'/', false);
    request.send();
    pokemon = JSON.parse(request.response);
-
+   pokemons[i]['id'] = pokemon.id;
    pokemons[i]['sprite_front_url'] = pokemon.sprites.front_default;
    pokemons[i]['sprite_back_url'] = pokemon.sprites.back_default;
    pokemons[i]['type'] = pokemon.types;
 }
 
-for(i = 0; i < 151; i++) {
+for(i = 0; i < results.length; i++) {
     pokemonName = pokemons[i].name;
     pokemonFrontSprite = pokemons[i].sprite_front_url;
     pokemonBackSprite = pokemons[i].sprite_back_url;
@@ -38,7 +38,9 @@ for(i = 0; i < 151; i++) {
     pokemonDiv.id = pokemonName;
     pokemonDiv.innerHTML += '<p>#'+ i + ' ' + pokemonName + '</p>';
     pokemonDiv.innerHTML += '<p><img src="' + pokemonFrontSprite + '" alt="' + pokemonName + '"></p>';
-    pokemonDiv.innerHTML += pokemonType;
+    pokemonDiv.innerHTML += pokemonType;addTeam
+    /* Only for create team page */
+    pokemonDiv.innerHTML += '<label for=""></label><input type="checkbox" onClick="addPokemonToTeam(this)" data-id="' + pokemons[i].id +'" id="checkbox-' + pokemons[i].id + '" class="add-team-checkbox"/>';
     pokemonDiv.innerHTML += '<hr>';
 
     divPokemons.append(pokemonDiv);
