@@ -35,7 +35,7 @@ class Router {
             throw new Error("Wrong argument type");
         }
 
-        this.config.root = window.location.origin + path;
+        this.config.root = path;
         this.config.documentRoot = id;
         this.config.rootHandler = handler;
 
@@ -90,18 +90,19 @@ class Router {
     /**
      * Navigation is used by usr to navigate in the app
      *
-     * @param  {string} path - Path where to navigate
+     * @param {string} path  Path where to navigate
+     * @param {string} title Title of the page
      *
      * @return {Router} Router object
      */
-    navigate(path) {
+    navigate(path, title = "ma page") {
         if (typeof path !== 'string') {
             throw new Error("Wrong argument type");
         }
 
         history.pushState({
             foo: 'bar'
-        }, "page 2", this.config.root + path);
+        }, title, this.config.root + path);
 
         this.dispatch();
 
@@ -111,7 +112,7 @@ class Router {
     /**
      * Forward the user
      *
-     * @param {string} path [description]
+     * @param {string} path
      */
     static forward(path) {
         if (typeof path !== 'string') {
@@ -127,7 +128,7 @@ class Router {
     dispatch() {
         let uri = Router.getUri();
 
-        if (window.location.href === this.config.root) {
+        if (uri === this.config.root) {
             return this.config.rootHandler()
         }
 
@@ -150,5 +151,37 @@ class Router {
         }
 
         return false;
+    }
+
+    /**
+     * Load specific template
+     *
+     * @param {string} path
+     * @param {object} data
+     */
+    loadTemplate(path, data = {}) {
+        var promise = new Promise((resolve, reject) => {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onload = function () {
+                if (this.readyState === 4 && this.status === 200) {
+                    resolve(this.responseText);
+                } else {
+                    reject('nique');
+                }
+            };
+            xhttp.open("GET", 'http://localhost:8888/project/src/views/' + path, true);
+            xhttp.send();
+        });
+
+        promise.then((value) => {
+            document.getElementById('root').innerHTML = '';
+            document.getElementById('root').innerHTML = value;
+
+            app = data;
+
+            setTimeout(function () {
+                interpolation.detect();
+            })
+        });
     }
 }
