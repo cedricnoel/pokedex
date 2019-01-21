@@ -8,24 +8,28 @@ router.setRoot('/project/public/', 'root', () => {
 }).add('about/', () => {
     router.loadTemplate('about.html');
 }).add('products/:slug/:id', (e) => {
-    let p1 = document.createElement("p");
-    p1.innerText = 'Slug: ' + e[0];
+    router.loadTemplate('product.html', {
+        'slug': e[0],
+        'id': e[1],
+    });
+}).add('pokemon/:id', (e) => {
+    var promise = new Promise((resolve, reject) => {
+        const req = new XMLHttpRequest();
+        req.open('GET', 'https://pokeapi.co/api/v2/pokemon/' + e[0] + '/', false);
+        req.send(null);
 
-    let p2 = document.createElement("p");
-    p2.innerText = 'Id: ' + e[1];
+        if (req.status === 200) {
+            resolve(JSON.parse(req.responseText));
+        } else {
+            reject('error');
+        }
+    });
 
-    let b = document.createElement('button');
-    b.innerText = 'Go to Home';
-    b.onclick = () => {
-        router.navigate('')
-    };
-    
-    let root = document.getElementById('root');
-    root.innerHTML = '';
-
-    root.appendChild(p1);
-    root.appendChild(p2);
-    root.appendChild(b);
+    promise.then((value) => {
+        router.loadTemplate('pokemon-detail.html', {
+            'pokemon': value
+        });
+    })
 });
 
 router.dispatch();
