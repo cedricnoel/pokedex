@@ -1,9 +1,14 @@
 class pokemon{
 
-    constructor(name, type, image ){
+    constructor(name, type, image){
         this.name = name;
         this.type = type;
         this.image = image;
+        this.weight = 180;
+        //Private method for fat pokemon
+        function weight(){
+            return "This is my secret weight " + this.weight;
+        }
     }
     
     addPokemonToLocalStorage(){
