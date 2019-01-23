@@ -153,7 +153,6 @@ class Router {
 
              var scripts = Array.prototype.slice.call( document.getElementById('root').getElementsByTagName("script"));
             for (var i = 0; i < scripts.length; i++) {
-                console.log(scripts[i]);
                 if (scripts[i].src != "") {
                     var tag = document.createElement("script");
                     tag.src = scripts[i].src;

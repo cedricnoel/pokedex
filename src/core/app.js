@@ -1,8 +1,10 @@
 (function(){
 
-
-var request = new XMLHttpRequest();
+build();
+  function build(){
+    var request = new XMLHttpRequest();
 var loading = document.getElementById("pokemons-loading");
+loading.style.display = "block";
 request.open('GET', 'https://pokeapi.co/api/v2/pokemon?limit=151', /* async = */ false);
 request.send();
 var response = JSON.parse(request.response);
@@ -66,5 +68,14 @@ for(i = 0; i < results.length; i++) {
     
     divPokemons.append(pokemonDiv);
 }
+
+  }
+
+      //Ecouter l'événement.
+            document.addEventListener('route-change', function (e) { 
+                if(document.getElementById("pokemons")){
+             build();
+          }
+             }, false);
 
 })()
