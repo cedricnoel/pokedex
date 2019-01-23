@@ -58,7 +58,17 @@ function addPokemonToTeam(e){
     }
 }
 
-//getTeamsFromLocalStorage();
+      //Ecouter l'événement.
+            document.addEventListener('route-change', function (e) { 
+                if(document.getElementById("teams")){
+    getTeamsFromLocalStorage();
+}
+             }, false);
+
+   if(document.getElementById("teams")){
+    getTeamsFromLocalStorage();
+}
+
 function getTeamsFromLocalStorage(){
     let root = document.getElementById("teams");
     let ul = document.createElement("ul");
