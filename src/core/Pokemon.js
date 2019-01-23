@@ -1,7 +1,6 @@
 class pokemon{
 
-    constructor(id, name, type, image ){
-        this.id = id;
+    constructor(name, type, image ){
         this.name = name;
         this.type = type;
         this.image = image;
@@ -17,8 +16,12 @@ class pokemon{
             console.log(this.name + " already exist !");
         }
     }
-
 }
+
+pokemon.prototype.hello = function() {
+    return "Hello i am the pokemon " + this.name;
+};
+
 
 var newPokemonForm = document.getElementsByName("newPokemon")[0];
 var error = document.getElementById("error");
@@ -146,7 +149,7 @@ function addPokemonToTeam(e){
     }
 }
 
-getTeamsFromLocalStorage();
+//getTeamsFromLocalStorage();
 function getTeamsFromLocalStorage(){
     let root = document.getElementById("teams");
     let ul = document.createElement("ul");
