@@ -4,38 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+     <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <title>POKDEX</title>
 </head>
 <body>
+ <nav>
+    <div class="nav-wrapper">
+      <a href="#!" class="brand-logo">Logo</a>
+      <ul class="right hide-on-med-and-down">
+        <li><a class="waves-effect waves-light btn" onclick="router.navigate('/home')">INDEX</a></li>
+        <li><a class="waves-effect waves-light btn" onclick="router.navigate('/pokemons')">POKEMONS</a></li>
+        <li>
+		<button class='dropdown-trigger btn' data-target='team-dropdown'>TEAM</button>
+	</li>
+		<li>
+			<button class='dropdown-trigger btn' data-target='pokemon-dropdown'>POKEMON</button>
+	</li>
+      </ul>
+    </div>
+  </nav>
 
-<ul>
-	<li>
-		<button onclick="router.navigate('/home')">Index</button>
-	</li>
-	<li>
-		<button onclick="router.navigate('/pokemons')">Pokemons</button>
-	</li>
-	<li>
-		<ul>
-			<li>
-				<button onclick="router.navigate('/my-team')">My teams</button>
+  <ul id='team-dropdown' class='dropdown-content'>
+  			<li>
+				<a onclick="router.navigate('/my-team')">My teams</a>
 			</li>
 			<li>
-				<button onclick="router.navigate('/my-team/add')">Create a team</button>
+				<a onclick="router.navigate('/my-team/add')">Create a team</a>
 			</li>
-		</ul>
-	</li>
-	<li>
-		<ul>
+  </ul>
+
+    <ul id='pokemon-dropdown' class='dropdown-content'>
+ 		<li>
+				<a onclick="router.navigate('/my-pokemon')">My pokemons</a>
+			</li>
 			<li>
-				<button onclick="router.navigate('/my-pokemon')">My pokemons</button>
+				<a onclick="router.navigate('/my-pokemon/add')">Create a pokemons</a>
 			</li>
-			<li>
-				<button onclick="router.navigate('/my-pokemon/add')">Create a pokemons</button>
-			</li>
-		</ul>
-	</li>
-</ul>
+  </ul>
 
     <div id="root">
         <!-- Content append here -->
@@ -44,10 +50,20 @@
     	
     </div>
 </body>
+    <!-- Compiled and minified JavaScript -->
+    <script
+  src="https://code.jquery.com/jquery-2.2.4.min.js"
+  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+  crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 <script src="../src/core/router.js"></script>
 <script src="../src/core/routes.js"></script>
 <script src="../src/core/interpolate.js"></script>
 <script>
     var app = {};
+
+    $( document ).ready(function(){
+    	$(".dropdown-trigger").dropdown();
+    })
 </script>
 </html>
