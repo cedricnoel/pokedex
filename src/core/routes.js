@@ -29,6 +29,9 @@ router
             });
         })
     })
+    .add(/my-team/, function(){
+        router.loadTemplate('localStorage/teams.html');        
+    })
     .check('/products/12/edit/22').listen();
 
 // forwarding to home
