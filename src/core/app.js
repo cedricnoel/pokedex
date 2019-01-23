@@ -9,8 +9,8 @@ request.open('GET', 'https://pokeapi.co/api/v2/pokemon?limit=151', /* async = */
 request.send();
 var response = JSON.parse(request.response);
 var results = response.results;
-var pokemons = {};
-var divPokemons = document.getElementById('pokemons');
+pokemons = {};
+var divPokemons = document.getElementById('pokemons-content');
 var pokemonsDiv = [];
 
 for(i = 0; i < results.length; i++) {

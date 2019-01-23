@@ -31,17 +31,20 @@ class Team{
 
 var team = new Team();
 var addTeamForm = document.getElementsByName("addTeam")[0];
-if(addTeamForm){
-    addTeamForm.addEventListener("submit", function(e){
+var teamFormSubmit = document.getElementById("teamFormSubmit");
+
+if(teamFormSubmit){
+    teamFormSubmit.addEventListener("click", function(e){
         e.preventDefault();
-        team.name = e.target.name.value;
+        team.name = addTeamForm.name.value;
         if(!team.name && (team.pokemons.length > 6 || team.pokemons.length < 6 )){
             error.innerHTML = "Invalid team composition";
         }else{
             team.addToLocalStorage();
         }
     });
-};
+}
+
 
 function addPokemonToTeam(e){
 
