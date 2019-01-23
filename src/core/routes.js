@@ -1,35 +1,35 @@
-/** @type Router */
-const router   = new Router();
+/** @type {Router} */
+const router = new Router();
 
-router.setRoot('/project/public/', 'root', () => {
-    router.loadTemplate('index.html', {
-        'message': 'Hello world'
-    });
-}).add('about/', () => {
-    router.loadTemplate('about.html');
-}).add('products/:slug/:id', (e) => {
-    router.loadTemplate('product.html', {
-        'slug': e[0],
-        'id': e[1],
-    });
-}).add('pokemon/:id', (e) => {
-    var promise = new Promise((resolve, reject) => {
-        const req = new XMLHttpRequest();
-        req.open('GET', 'https://pokeapi.co/api/v2/pokemon/' + e[0] + '/', false);
-        req.send(null);
+// Router configuration
+router.config({ mode: 'hash'});
 
-        if (req.status === 200) {
-            resolve(JSON.parse(req.responseText));
-        } else {
-            reject('error');
-        }
-    });
-
-    promise.then((value) => {
-        router.loadTemplate('pokemon-detail.html', {
-            'pokemon': value
+// adding routes
+router
+    .add(/about/, function() {
+        router.loadTemplate('about.html');
+    })
+    .add(/test/, function() {
+        console.log('test');
+    })
+    .add(/products\/(.*)\/edit\/(.*)/, function() {
+        console.log('products', arguments);
+    })
+    .add(/home/, function() {
+        router.loadTemplate('index.html', {
+            'message': 'Hello World!'
         });
     })
-});
+    .add(/pokemon\/(.*)/, function() {
+        var promise = router.getPokemon(arguments[0]);
 
-router.dispatch();
+        promise.then((value) => {
+            router.loadTemplate('pokemon-detail.html', {
+                'pokemon': value
+            });
+        })
+    })
+    .check('/products/12/edit/22').listen();
+
+// forwarding to home
+router.navigate('/home');
