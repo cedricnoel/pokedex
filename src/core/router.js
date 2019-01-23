@@ -141,6 +141,7 @@ class Router {
         });
 
         promise.then((value) => {
+
             document.getElementById('root').innerHTML = '';
             document.getElementById('root').innerHTML = value;
 
@@ -148,6 +149,18 @@ class Router {
                 app = data.pokemon;
             } else {
                 app = data;
+            }
+
+             var scripts = Array.prototype.slice.call( document.getElementById('root').getElementsByTagName("script"));
+            for (var i = 0; i < scripts.length; i++) {
+                if (scripts[i].src != "") {
+                    var tag = document.createElement("script");
+                    tag.src = scripts[i].src;
+                    document.getElementById('root').appendChild(tag);
+                }
+                else {
+                    eval(scripts[i].innerHTML);
+                }
             }
 
             setTimeout(function () {

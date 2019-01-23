@@ -4,11 +4,6 @@ class pokemon{
         this.name = name;
         this.type = type;
         this.image = image;
-        this.weight = 180;
-        //Private method for fat pokemon
-        function weight(){
-            return "This is my secret weight " + this.weight;
-        }
     }
     
     addPokemonToLocalStorage(){
@@ -35,6 +30,7 @@ if(newPokemonForm){
         var image = document.getElementById("image").files[0];
         storeImage(image, e.target.name)
             .then(function(res){
+                console.log(res);
                 var newPokemon = new pokemon(null, e.target.name.value,e.target.name.type, res);
                 newPokemon.addPokemonToLocalStorage();
                 e.preventDefault();
@@ -59,9 +55,9 @@ function storeImage(image, name){
     })
 }
 
-//getPokemonsFromLocalStorage();
+getPokemonsFromLocalStorage();
 function getPokemonsFromLocalStorage(){
-    var root = document.getElementById("root");
+    var root = document.getElementById("my-pokemons");
     var ul = document.createElement("ul");
     for (var a in localStorage) {
         if(a.indexOf("pokemon") > -1){

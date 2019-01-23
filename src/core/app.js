@@ -1,4 +1,8 @@
+(function(){
+
+
 var request = new XMLHttpRequest();
+var loading = document.getElementById("pokemons-loading");
 request.open('GET', 'https://pokeapi.co/api/v2/pokemon?limit=151', /* async = */ false);
 request.send();
 var response = JSON.parse(request.response);
@@ -18,6 +22,10 @@ for(i = 0; i < results.length; i++) {
    pokemons[i]['sprite_front_url'] = pokemon.sprites.front_default;
    pokemons[i]['sprite_back_url'] = pokemon.sprites.back_default;
    pokemons[i]['type'] = pokemon.types;
+
+   if(i == results.length -1){
+      loading.style.display = "none";
+   }
 }
 
 for(i = 0; i < results.length; i++) {
@@ -48,7 +56,7 @@ for(i = 0; i < results.length; i++) {
     pokemonDiv.append(pokemonBackImg);
     pokemonDiv.innerHTML += '<p>#'+ i + ' ' + pokemonName + '</p>';
     pokemonDiv.innerHTML += '<p><img src="' + pokemonFrontSprite + '" alt="' + pokemonName + '"></p>';
-    pokemonDiv.innerHTML += pokemonType;addTeam
+    pokemonDiv.innerHTML += pokemonType;
     /* Only for create team page */
     pokemonDiv.innerHTML += '<label for=""></label><input type="checkbox" onClick="addPokemonToTeam(this)" data-id="' + pokemons[i].id +'" id="checkbox-' + pokemons[i].id + '" class="add-team-checkbox"/>';
 
@@ -58,3 +66,5 @@ for(i = 0; i < results.length; i++) {
     
     divPokemons.append(pokemonDiv);
 }
+
+})()

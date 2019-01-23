@@ -7,6 +7,36 @@
     <title>Document</title>
 </head>
 <body>
+
+<ul>
+	<li>
+		<button onclick="router.navigate('/home')">Index</button>
+	</li>
+	<li>
+		<button onclick="router.navigate('/pokemons')">Pokemons</button>
+	</li>
+	<li>
+		<ul>
+			<li>
+				<button onclick="router.navigate('/my-team')">My teams</button>
+			</li>
+			<li>
+				<button onclick="router.navigate('/my-team/add')">Create a team</button>
+			</li>
+		</ul>
+	</li>
+	<li>
+		<ul>
+			<li>
+				<button onclick="router.navigate('/my-pokemon')">My pokemons</button>
+			</li>
+			<li>
+				<button onclick="router.navigate('/my-pokemon/add')">Create a pokemons</button>
+			</li>
+		</ul>
+	</li>
+</ul>
+
     <div id="root">
         <!-- Content append here -->
     </div>

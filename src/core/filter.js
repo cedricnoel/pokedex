@@ -1,3 +1,4 @@
+var request = new XMLHttpRequest();
 request.open('GET', 'https://pokeapi.co/api/v2/type', /* async = */ false);
 request.send();
 
