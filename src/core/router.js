@@ -174,6 +174,10 @@ class Router {
                 }
             }
 
+            var event = new Event('route-change');
+            //distribuer l'événement.
+            document.dispatchEvent(event);
+
             setTimeout(function () {
                 interpolation.detect();
             })

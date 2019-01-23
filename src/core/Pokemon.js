@@ -18,6 +18,14 @@ class pokemon{
     }
 }
 
+       //Ecouter l'événement.
+            document.addEventListener('route-change', function (e) { 
+                if(document.getElementById("my-pokemons")){
+    getPokemonsFromLocalStorage();
+}
+             }, false);
+
+
 pokemon.prototype.hello = function() {
     return "Hello i am the pokemon " + this.name;
 };
