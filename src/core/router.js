@@ -153,10 +153,21 @@ class Router {
 
              var scripts = Array.prototype.slice.call( document.getElementById('root').getElementsByTagName("script"));
             for (var i = 0; i < scripts.length; i++) {
+                console.log(scripts[i]);
                 if (scripts[i].src != "") {
                     var tag = document.createElement("script");
                     tag.src = scripts[i].src;
-                    document.getElementById('root').appendChild(tag);
+
+                    var all_scripts = Array.prototype.slice.call( document.getElementById('scripts').getElementsByTagName("script"));
+                    var script_to_add = true;
+                    for(var i=0; i<all_scripts.length;i++){
+                        if(all_scripts[i].src === tag.src){
+                            script_to_add = false;
+                        }
+                    }
+                    if(script_to_add){
+                        document.getElementById('scripts').appendChild(tag);
+                    }
                 }
                 else {
                     eval(scripts[i].innerHTML);
