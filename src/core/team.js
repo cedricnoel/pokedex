@@ -78,8 +78,10 @@ function addPokemonToTeam(e){
 function getTeamsFromLocalStorage(){
     let root = document.getElementById("teams");
     let ul = document.createElement("ul");
+    let count = 0;
     for (var a in localStorage) {
         if(a.indexOf("team-") > -1){
+            count++;
             let li = document.createElement("li");
             let div = document.createElement("div");
             div.className += "col s12 item card";
@@ -91,7 +93,8 @@ function getTeamsFromLocalStorage(){
             delete_button.addEventListener("click", function(){
                 if(localStorage.getItem("team-"+team.name)){
                     localStorage.removeItem("team-"+team.name);
-                    location.reload();
+                    M.toast({html: team.name + " has been deleted"})
+                    li.style.display = "none";
                 }
             })
             h3.append(team.name);
@@ -115,6 +118,13 @@ function getTeamsFromLocalStorage(){
            li.append(div);
            ul.append(li);
         }
+     }
+     if(count <=0){
+        let li = document.createElement("li");
+        let p = document.createElement("p");
+        p.innerHTML = "Aucune team";
+        li.append(p);
+        ul.append(li);
      }
      root.append(ul);
 }
