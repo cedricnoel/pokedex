@@ -13,35 +13,32 @@
     <div class="nav-wrapper">
       <a href="#!" class="brand-logo">Logo</a>
       <ul class="right hide-on-med-and-down">
-        <li><a class="waves-effect waves-light btn" onclick="router.navigate('/home')">INDEX</a></li>
-        <li><a class="waves-effect waves-light btn" onclick="router.navigate('/pokemons')">POKEMONS</a></li>
+        <li><button class="waves-effect waves-light btn" onclick="router.navigate('/home')">Index</a></button>
+        <li><button class="waves-effect waves-light btn" onclick="router.navigate('/pokemons')">Pokemons</a></button>
         <li>
-		<button class='dropdown-trigger btn' data-target='team-dropdown'>TEAM</button>
+		<ul>
+			<li>
+				<button class="waves-effect waves-light btn" onclick="router.navigate('/my-team')">My teams</button>
+			</li>
+			<li>
+				<button class="waves-effect waves-light btn" onclick="router.navigate('/my-team/add')">Create a team</button>
+			</li>
+		</ul>
 	</li>
 		<li>
-			<button class='dropdown-trigger btn' data-target='pokemon-dropdown'>POKEMON</button>
+		<ul>
+			<li>
+				<button class="waves-effect waves-light btn" onclick="router.navigate('/my-pokemon')">My pokemons</button>
+			</li>
+			<li>
+				<button class="waves-effect waves-light btn" onclick="router.navigate('/my-pokemon/add')">Create a pokemons</button>
+			</li>
+		</ul>
 	</li>
       </ul>
     </div>
   </nav>
-
-  <ul id='team-dropdown' class='dropdown-content'>
-  			<li>
-				<a onclick="router.navigate('/my-team')">My teams</a>
-			</li>
-			<li>
-				<a onclick="router.navigate('/my-team/add')">Create a team</a>
-			</li>
-  </ul>
-
-    <ul id='pokemon-dropdown' class='dropdown-content'>
- 		<li>
-				<a onclick="router.navigate('/my-pokemon')">My pokemons</a>
-			</li>
-			<li>
-				<a onclick="router.navigate('/my-pokemon/add')">Create a pokemons</a>
-			</li>
-  </ul>
+  
 
     <div id="root">
         <!-- Content append here -->

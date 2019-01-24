@@ -46,24 +46,28 @@ for(i = 0; i < results.length; i++) {
     }
 
     pokemonDiv = document.createElement('div');
+    pokemonDivInside = document.createElement('div');
+    pokemonDivInside.onclick = function(){
+      console.log(this);
+      router.navigate('/pokemons');
+    }
     pokemonImg = document.createElement('img');
     pokemonBackImg = document.createElement('img');
     pokemonBackImg.src = pokemonBackSprite;
     pokemonImg.src = pokemonFrontSprite;
-    pokemonDiv.className = "col-md-4";
+    pokemonDiv.className = "col s3";
     pokemonDiv.id = pokemonName;
     pokemonDiv.setAttribute('data-back', pokemonBackSprite);
     pokemonDiv.setAttribute('data-front', pokemonFrontSprite);
-    pokemonDiv.append(pokemonImg);
-    pokemonDiv.append(pokemonBackImg);
-    pokemonDiv.innerHTML += '<p>#'+ i + ' ' + pokemonName + '</p>';
-    pokemonDiv.innerHTML += '<p><img src="' + pokemonFrontSprite + '" alt="' + pokemonName + '"></p>';
+    pokemonDivInside.append(pokemonImg);
+    pokemonDivInside.append(pokemonBackImg);
+    pokemonDivInside.innerHTML += '<p>#'+ i + ' ' + pokemonName + '</p>';
+    pokemonDiv.append(pokemonDivInside);
     pokemonDiv.innerHTML += pokemonType;
     /* Only for create team page */
-    pokemonDiv.innerHTML += '<label for=""></label><input type="checkbox" onClick="addPokemonToTeam(this)" data-id="' + pokemons[i].id +'" id="checkbox-' + pokemons[i].id + '" class="add-team-checkbox"/>';
-
+    pokemonDiv.innerHTML += '<label><input type="checkbox" onClick="addPokemonToTeam(this)" data-id="' + pokemons[i].id +'" id="checkbox-' + pokemons[i].id + '"/><span>Ajouter</span></label>';
     pokemonDiv.innerHTML += pokemonType;
-    pokemonDiv.innerHTML += '<hr>';
+    pokemonDiv.innerHTML += '<hr>'; 
     pokemonsDiv[i] = pokemonDiv;
     
     divPokemons.append(pokemonDiv);
