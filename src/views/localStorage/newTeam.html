@@ -1,15 +1,24 @@
 <div class="container text-center">
-            <h1>Pokédex</h1>
-            <hr>
+            <h1 class="">Créer ma team</h1>
             <div id="error">
 
                 </div>
             <form name="addTeam">
-                <label for="name"></label>
-                <input type="text" id="name" name="name" placeholder="name">
-                       <div id="pokemons-loading">Loading ...</div>
+               <div class="row">
+                    <div class="col s4 offset-s4">
+                    <label for="name"></label>
+                <input type="text" id="name" name="name" placeholder="Name of the team">
+                </div>
+               </div>
+               <div>
+                                          <div id="pokemons-loading">Loading ...</div>
             <div id="pokemons-content" class="row"></div>
-            <button id="teamFormSubmit" class="btn btn-primary">Créer ma team</button>
+            <div class="pokemons-add-bottom">
+                <div class="container">
+                                 <button id="teamFormSubmit" class="btn btn-primary">Créer ma team</button>   
+                </div>
+            </div>
+               </div>
         </form>
     </div>
 

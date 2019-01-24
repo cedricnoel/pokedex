@@ -50,10 +50,6 @@ for(i = 0; i < results.length; i++) {
 
     pokemonDiv = document.createElement('div');
     pokemonDivInside = document.createElement('div');
-    pokemonDivInside.onclick = function(){
-      console.log(this);
-      router.navigate('/pokemons');
-    }
     pokemonImg = document.createElement('img');
     pokemonBackImg = document.createElement('img');
     pokemonBackImg.src = pokemonBackSprite;
@@ -71,10 +67,14 @@ for(i = 0; i < results.length; i++) {
     pokemonDiv.append(pokemonDivInside);
     pokemonDiv.innerHTML += pokemonType;
     /* Only for create team page */
-    pokemonDiv.innerHTML += '<label><input type="checkbox" onClick="addPokemonToTeam(this)" data-id="' + pokemons[i].id +'" id="checkbox-' + pokemons[i].id + '"/><span>Ajouter</span></label>';
+    if(window.location.hash == '#/my-team/add'){
+          pokemonDiv.innerHTML += '<label><input type="checkbox" onClick="addPokemonToTeam(this)" data-id="' + pokemons[i].id +'" id="checkbox-' + pokemons[i].id + '"/><span>Ajouter</span></label>';
+    }else{
+        let acceder = document.createElement("button");
+    pokemonDiv.innerHTML += '<button class="btn" onClick="redirectToDetails(' + pokemons[i].id +')">Détails</button>';
+    }
     pokemonDiv.innerHTML += '<hr>'; 
     pokemonsDiv[i] = pokemonDiv;
-    
     divPokemons.append(pokemonDiv);
 }
 
@@ -82,10 +82,13 @@ for(i = 0; i < results.length; i++) {
 
       //Ecouter l'événement.
             document.addEventListener('route-change', function (e) { 
-
                 if(document.getElementById("pokemons-content")){
              build();
           }
              }, false);
 
 })()
+
+  function redirectToDetails(id){
+     router.navigate('/pokemon/' + id);
+  }
