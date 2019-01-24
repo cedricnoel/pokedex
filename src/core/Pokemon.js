@@ -30,42 +30,30 @@ pokemon.prototype.hello = function () {
     return "Hello i am the pokemon " + this.name;
 };
 
+/**
+ * Store custom pokemon in Local Store
+ */
 function storePokemon()
 {
-    var image = document.getElementById("image").files[0];
-    storeImage(image, document.getElementsByName('name')[0].value)
+    /** @type {File} */
+    let image = document.getElementById("image").files[0];
+    /** @type {string} */
+    let pokemonName = document.getElementsByName('name')[0].value;
+    /** @type {string} */
+    let pokemonType = document.getElementsByName("type")[0].value;
+
+    storeImage(image, pokemonName)
         .then(function (res) {
-            var newPokemon = new pokemon(
-                document.getElementsByName('name')[0].value,
-                document.getElementsByName("type")[0].value,
+            /** @type {pokemon} */
+            let newPokemon = new pokemon(
+                pokemonName,
+                pokemonType,
                 res
             );
+            // Store pokemon
             newPokemon.addPokemonToLocalStorage();
         })
 }
-
-
-var error = document.getElementById("error");
-var newPokemonForm = document.getElementById("newPokemon");
-var pokemonFormSubmit = document.getElementById("newPokemon-submit");
-
-if (pokemonFormSubmit && newPokemonForm) {
-    pokemonFormSubmit.addEventListener("click", function (e) {
-        e.preventDefault();
-        var image = document.getElementById("image").files[0];
-        storeImage(image, e.target.name)
-            .then(function (res) {
-                var newPokemon = new pokemon(
-                    document.getElementsByName('name')[0].value,
-                    document.getElementsByName("type")[0].value,
-                    res
-                );
-                newPokemon.addPokemonToLocalStorage();
-                newPokemonForm.reset();
-            })
-    })
-}
-
 
 function storeImage(image, name) {
     return new Promise(function (resolve, reject) {
