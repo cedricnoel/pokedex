@@ -36,10 +36,10 @@ for(i = 0; i < 20; i++) {
         for(i = 0; i < pokemonsDiv.length; i++) {
             for(n = 0; n < pokemons[i].type.length; n++) {
                 if (pokemons[i].type[n] != undefined && pokemons[i].type[0].type.name != this.id) {
-                    pokemonsDiv[i].style.display = "none";
+                    document.getElementById(pokemons[i].name).style.display = "none";
                 }
                 if (pokemons[i].type[n].type.name == this.id) {
-                    pokemonsDiv[i].style.display = "block";
+                    document.getElementById(pokemons[i].name).style.display = "block";
                 }
             }
         }

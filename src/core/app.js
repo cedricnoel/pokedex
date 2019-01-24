@@ -24,10 +24,11 @@ for(i = 0; i < results.length; i++) {
    pokemons[i]['sprite_front_url'] = pokemon.sprites.front_default;
    pokemons[i]['sprite_back_url'] = pokemon.sprites.back_default;
    pokemons[i]['type'] = pokemon.types;
-
    if(i == results.length -1){
       loading.style.display = "none";
    }
+   pokemons[i]['weight'] = pokemon.weight;
+   pokemons[i]['id'] = pokemon.id;
 }
 
 for(i = 0; i < results.length; i++) {
@@ -35,6 +36,8 @@ for(i = 0; i < results.length; i++) {
     pokemonName = pokemon.name;
     pokemonFrontSprite = pokemon.sprite_front_url;
     pokemonBackSprite = pokemon.sprite_back_url;
+    pokemonId = pokemon.id;
+    pokemonWeight = pokemon.weight / 10;
     pokemonType1 = pokemon.type[0].type.name;
     pokemonType = '<span class="badge badge-secondary">' + pokemonType1 + '</span>';
     pokemonType2 = undefined;
@@ -59,9 +62,12 @@ for(i = 0; i < results.length; i++) {
     pokemonDiv.id = pokemonName;
     pokemonDiv.setAttribute('data-back', pokemonBackSprite);
     pokemonDiv.setAttribute('data-front', pokemonFrontSprite);
+    pokemonDiv.setAttribute('data-pokemonId', pokemonId);
+    pokemonDiv.setAttribute('data-weight', pokemonWeight);
     pokemonDivInside.append(pokemonImg);
     pokemonDivInside.append(pokemonBackImg);
-    pokemonDivInside.innerHTML += '<p>#'+ i + ' ' + pokemonName + '</p>';
+    pokemonDivInside.innerHTML += '<p>#'+ pokemonId + ' ' + pokemonName + '</p>';
+    pokemonDivInside.innerHTML += '<p>'+ pokemonWeight + 'kg</p>';
     pokemonDiv.append(pokemonDivInside);
     pokemonDiv.innerHTML += pokemonType;
     /* Only for create team page */
