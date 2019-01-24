@@ -49,6 +49,7 @@ for(i = 0; i < results.length; i++) {
     }
 
     pokemonDiv = document.createElement('div');
+    pokemonDiv.setAttribute('pokemon', pokemonName);
     pokemonDivInside = document.createElement('div');
     pokemonImg = document.createElement('img');
     pokemonBackImg = document.createElement('img');
@@ -92,3 +93,35 @@ for(i = 0; i < results.length; i++) {
   function redirectToDetails(id){
      router.navigate('/pokemon/' + id);
   }
+
+function filter()
+{
+    let input = document.getElementById("pokemonName");
+    let filter = input.value.toUpperCase();
+    let elements = getAllElementsWithAttribute('pokemon');
+
+    for (let i = 0; i < elements.length; i++) {
+        pokemonName = elements[i].getAttribute('pokemon').toUpperCase();
+
+        if (pokemonName.indexOf(filter) > -1) {
+            elements[i].style.display = "";
+        } else {
+            elements[i].style.display = 'none';
+        }
+    }
+}
+
+function getAllElementsWithAttribute(attribute)
+{
+    let matchingElements = [];
+    let allElements = document.getElementsByTagName('*');
+
+    for (let i = 0, n = allElements.length; i < n; i++)
+    {
+        if (allElements[i].getAttribute(attribute) !== null)
+        {
+            matchingElements.push(allElements[i]);
+        }
+    }
+    return matchingElements;
+}
