@@ -66,7 +66,6 @@ for(i = 0; i < results.length; i++) {
     pokemonDiv.innerHTML += pokemonType;
     /* Only for create team page */
     pokemonDiv.innerHTML += '<label><input type="checkbox" onClick="addPokemonToTeam(this)" data-id="' + pokemons[i].id +'" id="checkbox-' + pokemons[i].id + '"/><span>Ajouter</span></label>';
-    pokemonDiv.innerHTML += pokemonType;
     pokemonDiv.innerHTML += '<hr>'; 
     pokemonsDiv[i] = pokemonDiv;
     
@@ -77,7 +76,8 @@ for(i = 0; i < results.length; i++) {
 
       //Ecouter l'événement.
             document.addEventListener('route-change', function (e) { 
-                if(document.getElementById("pokemons")){
+
+                if(document.getElementById("pokemons-content")){
              build();
           }
              }, false);

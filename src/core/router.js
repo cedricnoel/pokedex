@@ -173,8 +173,7 @@ class Router {
                 }
             }
 
-            var event = new Event('route-change');
-            //distribuer l'événement.
+            var event = new CustomEvent('route-change', {'detail': path});
             document.dispatchEvent(event);
 
             setTimeout(function () {
