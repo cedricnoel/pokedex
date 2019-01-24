@@ -5,7 +5,7 @@ build();
     var request = new XMLHttpRequest();
 var loading = document.getElementById("pokemons-loading");
 loading.style.display = "block";
-request.open('GET', 'https://pokeapi.co/api/v2/pokemon?limit=151', /* async = */ false);
+request.open('GET', 'https://pokeapi.co/api/v2/pokemon?limit=15', /* async = */ false);
 request.send();
 var response = JSON.parse(request.response);
 var results = response.results;
@@ -58,7 +58,7 @@ for(i = 0; i < results.length; i++) {
     pokemonBackImg = document.createElement('img');
     pokemonBackImg.src = pokemonBackSprite;
     pokemonImg.src = pokemonFrontSprite;
-    pokemonDiv.className = "col s3";
+    pokemonDiv.className = "col s3 pkmn";
     pokemonDiv.id = pokemonName;
     pokemonDiv.setAttribute('data-back', pokemonBackSprite);
     pokemonDiv.setAttribute('data-front', pokemonFrontSprite);

@@ -1,7 +1,8 @@
 var sort = {};
 var divSort = document.getElementById('sort');
-
-types[0] = {};
+var divPokemons = document.getElementById('pokemons-content');
+var pokemonsDiv = document.querySelectorAll('div .pkmn');
+var pokemonsDiv = Array.prototype.slice.call(pokemonsDiv, 0);
 
 var spanSortAZ = document.createElement('span');
 spanSortAZ.className = 'badge badge-secondary';

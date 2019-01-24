@@ -1,6 +1,7 @@
 var request = new XMLHttpRequest();
 request.open('GET', 'https://pokeapi.co/api/v2/type', /* async = */ false);
 request.send();
+var pokemonsDiv = document.querySelectorAll('div .pkmn');
 
 var response = JSON.parse(request.response);
 var results = response.results;
@@ -13,7 +14,7 @@ for(i = 0; i < results.length; i++) {
 }
 
 typeSpan = document.createElement('span');
-typeSpan.className = 'badge badge-secondary';
+typeSpan.className = 'badge';
 typeSpan.innerHTML = 'All';
 typeSpan.onclick = function()
 { 
@@ -28,7 +29,7 @@ divTypes.append(typeSpan);
 for(i = 0; i < 20; i++) {
     typeName = types[i].name;
     typeSpan = document.createElement('span');
-    typeSpan.className = 'badge badge-secondary';
+    typeSpan.className = 'badge';
     typeSpan.id = typeName;
     typeSpan.innerHTML = typeName;
     typeSpan.onclick = function()
@@ -46,3 +47,5 @@ for(i = 0; i < 20; i++) {
     }
     divTypes.append(typeSpan);
 }
+
+console.log(pokemonsDiv);
