@@ -30,9 +30,23 @@ pokemon.prototype.hello = function () {
     return "Hello i am the pokemon " + this.name;
 };
 
+function storePokemon()
+{
+    var image = document.getElementById("image").files[0];
+    storeImage(image, document.getElementsByName('name')[0].value)
+        .then(function (res) {
+            var newPokemon = new pokemon(
+                document.getElementsByName('name')[0].value,
+                document.getElementsByName("type")[0].value,
+                res
+            );
+            newPokemon.addPokemonToLocalStorage();
+        })
+}
+
 
 var error = document.getElementById("error");
-var newPokemonForm = document.getElementsByName("newPokemon")[0];
+var newPokemonForm = document.getElementById("newPokemon");
 var pokemonFormSubmit = document.getElementById("newPokemon-submit");
 
 if (pokemonFormSubmit && newPokemonForm) {
@@ -41,7 +55,11 @@ if (pokemonFormSubmit && newPokemonForm) {
         var image = document.getElementById("image").files[0];
         storeImage(image, e.target.name)
             .then(function (res) {
-                var newPokemon = new pokemon(newPokemonForm.name.value, newPokemonForm.type.value, res);
+                var newPokemon = new pokemon(
+                    document.getElementsByName('name')[0].value,
+                    document.getElementsByName("type")[0].value,
+                    res
+                );
                 newPokemon.addPokemonToLocalStorage();
                 newPokemonForm.reset();
             })
