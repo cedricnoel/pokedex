@@ -79,12 +79,12 @@ function getTeamsFromLocalStorage(){
         if(a.indexOf("team-") > -1){
             let li = document.createElement("li");
             let div = document.createElement("div");
-            div.className += "row";
-            let h3 = document.createElement("h3");
+            div.className += "col s12 item card";
+            let h3 = document.createElement("h4");
             let team = JSON.parse(localStorage[a]);
             let delete_button = document.createElement("button");
             delete_button.innerHTML = "Supprimer";
-            delete_button.className += " btn btn-danger";
+            delete_button.className += "btn red";
             delete_button.addEventListener("click", function(){
                 if(localStorage.getItem("team-"+team.name)){
                     localStorage.removeItem("team-"+team.name);
@@ -105,6 +105,8 @@ function getTeamsFromLocalStorage(){
                 ul2.append(li2);
             }
            div.append(h3);
+           let hr = document.createElement("hr");
+           div.append(hr);
            div.append(ul2);
            div.append(delete_button);
            li.append(div);
