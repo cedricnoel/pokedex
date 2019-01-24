@@ -53,3 +53,34 @@
 .card .card-image .card-title{
 	padding: 0px 0px 0px 20px;
 }
+
+.wallpaper-home{
+	    background: url(../img/pokemon-wallpaper.jpg);
+    width: 100%;
+    height: calc(100vh - 64px);
+    background-position: 50% 50%;
+    background-size: cover;
+        display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 6em;
+}
+
+.wallpaper-home .text{
+	width: 100%;
+    text-align: center;
+    background: rgba(255,255,255,0.5);
+}
+
+.wallpaper-home span{
+	    background: linear-gradient(to right, #20d200 10%,#ff9900 63%, #00f2fe 66%);
+    padding: 5px;
+    text-align: center;
+    width: 100%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.nav-wrapper button{
+	margin-right: 5px;
+}
