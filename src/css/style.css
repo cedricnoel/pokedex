@@ -84,3 +84,15 @@
 .nav-wrapper button{
 	margin-right: 5px;
 }
+
+#types {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#sort {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}

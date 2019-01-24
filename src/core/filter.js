@@ -58,7 +58,7 @@ for(i = 0; i < 20; i++) {
     if (types[i].color != undefined) {
         typeColor = types[i].color;
     }
-    typeSpan = document.createElement('button');
+    typeSpan = document.createElement('span');
     typeSpan.className = 'btn waves-effect ' + typeColor + '';
     typeSpan.id = typeName;
     typeSpan.innerHTML = typeName;
@@ -76,5 +76,4 @@ for(i = 0; i < 20; i++) {
         }
     }
     divTypes.append(typeSpan);
-    divTypes.innerHTML += "<br>";
 }

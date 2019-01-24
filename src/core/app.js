@@ -96,7 +96,7 @@ for(i = 0; i < results.length; i++) {
     pokemonBackImg = document.createElement('img');
     pokemonBackImg.src = pokemonBackSprite;
     pokemonImg.src = pokemonFrontSprite;
-    pokemonDiv.className = "col s4 pkmn " + colorClass1 + " lighten-5 waves-effect white-text";
+    pokemonDiv.className = "col s4 pkmn " + colorClass1 + " lighten-5 waves-effect white-text center-text";
     //pokemonsDiv.style.background = "background: black";
     pokemonDiv.id = pokemonName;
     pokemonDiv.setAttribute('data-back', pokemonBackSprite);
@@ -112,6 +112,7 @@ for(i = 0; i < results.length; i++) {
     pokemonDivInside.innerHTML += '<p style="text-shadow: black 0px 0px 5px;">'+ pokemonWeight + 'kg</p>';
     pokemonDiv.append(pokemonDivInside);
     pokemonDiv.innerHTML += pokemonType;
+    pokemonDiv.innerHTML += '<br>'; 
     /* Only for create team page */
     if(window.location.hash == '#/my-team/add'){
           pokemonDiv.innerHTML += '<label style="text-shadow: green 0px 0px 5px;"><input type="checkbox" onClick="addPokemonToTeam(this)" data-id="' + pokemons[i].id +'" id="checkbox-' + pokemons[i].id + '"/><span>Ajouter</span></label>';
