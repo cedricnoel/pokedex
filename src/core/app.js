@@ -115,12 +115,11 @@ for(i = 0; i < results.length; i++) {
     pokemonDiv.innerHTML += '<br>'; 
     /* Only for create team page */
     if(window.location.hash == '#/my-team/add'){
-          pokemonDiv.innerHTML += '<label style="text-shadow: green 0px 0px 5px;"><input type="checkbox" onClick="addPokemonToTeam(this)" data-id="' + pokemons[i].id +'" id="checkbox-' + pokemons[i].id + '"/><span>Ajouter</span></label>';
+          pokemonDiv.innerHTML += '<label style="    text-shadow: #1d1d1d 1px 0px 5px;float: right;margin: 10px 0;color: #FFF;"><input type="checkbox" onClick="addPokemonToTeam(this)" data-id="' + pokemons[i].id +'" id="checkbox-' + pokemons[i].id + '"/><span>Ajouter</span></label>';
     }else{
         let acceder = document.createElement("button");
-    pokemonDiv.innerHTML += '<button class="btn" onClick="redirectToDetails(' + pokemons[i].id +')">Détails</button>';
+    pokemonDiv.innerHTML += '<button class="btn btn-details" onClick="redirectToDetails(' + pokemons[i].id +')">Détails <i class="material-icons">chevron_right</i></button>';
     }
-    pokemonDiv.innerHTML += '<hr>'; 
     pokemonsDiv[i] = pokemonDiv;
     divPokemons.append(pokemonDiv);
 }

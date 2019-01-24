@@ -23,7 +23,7 @@ class Team{
                 error.innerHTML = "";
                 console.log(this.name + " has been added");
                 M.toast({html: this.name + " has been added"})
-                    router.navigate('/my-team/');
+                router.navigate('/my-team/');
             }else{
                 error.innerHTML = this.name + " already exist !";
                 console.log(this.name + " already exist !");
@@ -32,13 +32,14 @@ class Team{
 }
 
 var team = new Team();
-var addTeamForm = document.getElementsByName("addTeam")[0];
 var teamFormSubmit = document.getElementById("teamFormSubmit");
+var teamName = document.getElementById("teamName");
 
 if(teamFormSubmit){
     teamFormSubmit.addEventListener("click", function(e){
+       
         e.preventDefault();
-        team.name = addTeamForm.name.value;
+        team.name = teamName.value;
         if(!team.name && (team.pokemons.length > 6 || team.pokemons.length < 6 )){
             error.innerHTML = "Invalid team composition";
         }else{
