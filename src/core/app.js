@@ -90,10 +90,8 @@ for(i = 0; i < results.length; i++) {
     }
 
     pokemonDiv = document.createElement('div');
+    pokemonDiv.setAttribute('pokemon', pokemonName);
     pokemonDivInside = document.createElement('div');
-    pokemonDivInside.onclick = function(){
-      router.navigate('/pokemons');
-    }
     pokemonImg = document.createElement('img');
     pokemonBackImg = document.createElement('img');
     pokemonBackImg.src = pokemonBackSprite;
@@ -115,10 +113,14 @@ for(i = 0; i < results.length; i++) {
     pokemonDiv.append(pokemonDivInside);
     pokemonDiv.innerHTML += pokemonType;
     /* Only for create team page */
-    pokemonDiv.innerHTML += '<p style="text-shadow: green 0px 0px 5px;"><label><input type="checkbox" onClick="addPokemonToTeam(this)" data-id="' + pokemons[i].id +'" id="checkbox-' + pokemons[i].id + '"/><span>Ajouter</span></label></p>';
+    if(window.location.hash == '#/my-team/add'){
+          pokemonDiv.innerHTML += '<label style="text-shadow: green 0px 0px 5px;"><input type="checkbox" onClick="addPokemonToTeam(this)" data-id="' + pokemons[i].id +'" id="checkbox-' + pokemons[i].id + '"/><span>Ajouter</span></label>';
+    }else{
+        let acceder = document.createElement("button");
+    pokemonDiv.innerHTML += '<button class="btn" onClick="redirectToDetails(' + pokemons[i].id +')">Détails</button>';
+    }
     pokemonDiv.innerHTML += '<hr>'; 
     pokemonsDiv[i] = pokemonDiv;
-    
     divPokemons.append(pokemonDiv);
 }
 var allPokemon = document.querySelectorAll('div .pkmn');
@@ -134,10 +136,45 @@ for (d = 0; d < allPokemon.length; d++) {
 
       //Ecouter l'événement.
             document.addEventListener('route-change', function (e) { 
-
                 if(document.getElementById("pokemons-content")){
              build();
           }
              }, false);
 
 })()
+
+  function redirectToDetails(id){
+     router.navigate('/pokemon/' + id);
+  }
+
+function filter()
+{
+    let input = document.getElementById("pokemonName");
+    let filter = input.value.toUpperCase();
+    let elements = getAllElementsWithAttribute('pokemon');
+
+    for (let i = 0; i < elements.length; i++) {
+        pokemonName = elements[i].getAttribute('pokemon').toUpperCase();
+
+        if (pokemonName.indexOf(filter) > -1) {
+            elements[i].style.display = "";
+        } else {
+            elements[i].style.display = 'none';
+        }
+    }
+}
+
+function getAllElementsWithAttribute(attribute)
+{
+    let matchingElements = [];
+    let allElements = document.getElementsByTagName('*');
+
+    for (let i = 0, n = allElements.length; i < n; i++)
+    {
+        if (allElements[i].getAttribute(attribute) !== null)
+        {
+            matchingElements.push(allElements[i]);
+        }
+    }
+    return matchingElements;
+}

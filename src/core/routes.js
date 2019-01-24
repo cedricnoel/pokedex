@@ -11,7 +11,7 @@ router
     })
     .add(/home/, function() {
         router.loadTemplate('index.html', {
-            'message': 'Hello World!'
+            'message': 'Hello to pokedex !'
         });
     })
     .add(/my-team\/add/, function() {
@@ -41,4 +41,4 @@ router
     .check('/products/12/edit/22').listen();
 
 // forwarding to home
-router.navigate('/home');
+router.navigate('/home/');
