@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Router class
  *
@@ -22,9 +24,9 @@ class Router {
     /**
      * Set router root
      *
-     * @param {string}   path    [description]
-     * @param {string}   id      [description]
-     * @param {function} handler [description]
+     * @param {string}   path    Route path
+     * @param {string}   id      Route name
+     * @param {function} handler Function to execute on match
      *
      * @return {Router} Router
      */
@@ -33,7 +35,7 @@ class Router {
             throw new Error("Wrong argument type");
         }
 
-        this.config.root = window.location.origin + path;
+        this.config.root = path;
         this.config.documentRoot = id;
         this.config.rootHandler = handler;
 
@@ -43,7 +45,7 @@ class Router {
     /**
      * Add a route
      *
-     * @param {string} path    Route path
+     * @param {string}   path    Route path
      * @param {function} handler Handler of the route
      *
      * @return {Router} Router
@@ -58,7 +60,7 @@ class Router {
             'handler': handler
         });
 
-        return this
+        return this;
     }
 
     /**
@@ -88,16 +90,19 @@ class Router {
     /**
      * Navigation is used by usr to navigate in the app
      *
-     * @param  {string} path - Path where to navigate
+     * @param {string} path  Path where to navigate
+     * @param {string} title Title of the page
      *
      * @return {Router} Router object
      */
-    navigate(path) {
+    navigate(path, title = "ma page") {
         if (typeof path !== 'string') {
             throw new Error("Wrong argument type");
         }
 
-        history.pushState({foo: 'bar'}, "page 2", this.config.root + path);
+        history.pushState({
+            foo: 'bar'
+        }, title, this.config.root + path);
 
         this.dispatch();
 
@@ -107,14 +112,14 @@ class Router {
     /**
      * Forward the user
      *
-     * @param {string} path [description]
+     * @param {string} path
      */
     static forward(path) {
         if (typeof path !== 'string') {
             throw new Error("Wrong argument type");
         }
 
-        window.location.href = window.location.href.replace(/#(.*)$/, '') + path
+        window.location.href = window.location.href.replace(/#(.*)$/, '') + path;
     }
 
     /**
@@ -123,7 +128,7 @@ class Router {
     dispatch() {
         let uri = Router.getUri();
 
-        if (window.location.href === this.config.root) {
+        if (uri === this.config.root) {
             return this.config.rootHandler()
         }
 
@@ -138,13 +143,49 @@ class Router {
                 }
 
                 for (let j = 1; j < m.length; j++) {
-                    params.push(m[j])
+                    params.push(m[j]);
                 }
 
-                return this.config.routes[i].handler(params)
+                return this.config.routes[i].handler(params);
             }
         }
 
-        return false
+        return false;
+    }
+
+    /**
+     * Load specific template
+     *
+     * @param {string} path
+     * @param {object} data
+     */
+    loadTemplate(path, data = {}) {
+        var promise = new Promise((resolve, reject) => {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onload = function () {
+                if (this.readyState === 4 && this.status === 200) {
+                    resolve(this.responseText);
+                } else {
+                    reject('nique');
+                }
+            };
+            xhttp.open("GET", 'http://localhost:8888/project/src/views/' + path, true);
+            xhttp.send();
+        });
+
+        promise.then((value) => {
+            document.getElementById('root').innerHTML = '';
+            document.getElementById('root').innerHTML = value;
+
+            if (data.pokemon) {
+                app = data.pokemon;
+            } else {
+                app = data;
+            }
+
+            setTimeout(function () {
+                interpolation.detect();
+            })
+        });
     }
 }
