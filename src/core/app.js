@@ -12,6 +12,28 @@ var results = response.results;
 pokemons = {};
 var divPokemons = document.getElementById('pokemons-content');
 var pokemonsDiv = [];
+var colorTypes = [
+    {'type' : 'normal', 'color': 'brown lighten-5', 'hexa' : '#efebe9'},
+    {'type' : 'fighting', 'color': 'deep-orange accent-4', 'hexa' : '#dd2c00'},
+    {'type' : 'flying', 'color': 'deep-purple accent-1', 'hexa' : '#b388ff'},
+    {'type' : 'poison', 'color': 'deep-purple accent-3', 'hexa' : '#651fff'},
+    {'type' : 'rock', 'color': 'brown lighten-1', 'hexa' : '#8d6e63'},
+    {'type' : 'ground', 'color': 'brown lighten-1', 'hexa' : '#8d6e63'},
+    {'type' : 'bug', 'color': 'lime', 'hexa' : '#cddc39'},
+    {'type' : 'ghost', 'color': 'indigo lighten-2', 'hexa' : '#7986cb'},
+    {'type' : 'steel', 'color': 'blue-grey lighten-2', 'hexa' : '#90a4ae'},
+    {'type' : 'fire', 'color': 'orange', 'hexa' : '#ff9800'},
+    {'type' : 'water', 'color': 'blue', 'hexa' : '#2196f3'},
+    {'type' : 'grass', 'color': 'green', 'hexa' : '14caf50'},
+    {'type' : 'eletric', 'color': 'yellow', 'hexa' : '#ffeb3b'},
+    {'type' : 'psychic', 'color': 'purple accent-1', 'hexa' : '#9c27b0'},
+    {'type' : 'ice', 'color': 'cyan lighten-4', 'hexa' : '#b2ebf2'},
+    {'type' : 'dragon', 'color': 'indigo accent-4', 'hexa' : '#304ffe'},
+    {'type' : 'dark', 'color': 'grey darken-4', 'hexa' : '#212121'},
+    {'type' : 'fairy', 'color': 'pink accent-1', 'hexa' : '#ff80ab'},
+    {'type' : 'unknown', 'color': 'deep-orange accent-4', 'hexa' : '#ffebee'},
+    {'type' : 'shadow', 'color': 'black', 'hexa' : '#000000'},
+];
 
 for(i = 0; i < results.length; i++) {
    pokemons[i] = {};
@@ -32,6 +54,11 @@ for(i = 0; i < results.length; i++) {
 }
 
 for(i = 0; i < results.length; i++) {
+    colorClass1 = 'yellow';
+    colorHexa1 = '';
+    colorClass2 = '';
+    colorHexa2 = '';
+
     pokemon = pokemons[i];
     pokemonName = pokemon.name;
     pokemonFrontSprite = pokemon.sprite_front_url;
@@ -39,13 +66,27 @@ for(i = 0; i < results.length; i++) {
     pokemonId = pokemon.id;
     pokemonWeight = pokemon.weight / 10;
     pokemonType1 = pokemon.type[0].type.name;
-    pokemonType = '<span class="badge badge-secondary">' + pokemonType1 + '</span>';
-    pokemonType2 = undefined;
+    pokemonType2 = "";
+
+    for (c = 0; c < colorTypes.length; c++) {
+        if (colorTypes[c].type == pokemonType1) {
+            colorClass1 = colorTypes[c].color;
+            colorHexa1 = colorTypes[c].hexa;
+        }
+    }
+
+    pokemonType = '<span class="btn waves-effect ' + colorClass1 + '">' + pokemonType1 + '</span>';
 
     if (pokemons[i].type[1] != undefined)
     {
         pokemonType2 = pokemon.type[1].type.name;
-        pokemonType = '<span class="badge badge-secondary">' + pokemonType1 + '</span>' + '<span class="badge badge-secondary">' + pokemonType2 + '</span>';
+        for (c = 0; c < colorTypes.length; c++) {
+            if (colorTypes[c].type == pokemonType2) {
+                colorClass2 = colorTypes[c].color;
+                colorHexa2 = colorTypes[c].hexa;
+            }
+        }
+        pokemonType = '<span class="btn waves-effect ' + colorClass1 + '">' + pokemonType1 + '</span>' + '<span class="btn waves-effect '+ colorClass2 +'">' + pokemonType2 + '</span>';
     }
 
     pokemonDiv = document.createElement('div');
@@ -55,21 +96,25 @@ for(i = 0; i < results.length; i++) {
     pokemonBackImg = document.createElement('img');
     pokemonBackImg.src = pokemonBackSprite;
     pokemonImg.src = pokemonFrontSprite;
-    pokemonDiv.className = "col s3";
+    pokemonDiv.className = "col s4 pkmn " + colorClass1 + " lighten-5 waves-effect white-text";
+    //pokemonsDiv.style.background = "background: black";
     pokemonDiv.id = pokemonName;
     pokemonDiv.setAttribute('data-back', pokemonBackSprite);
     pokemonDiv.setAttribute('data-front', pokemonFrontSprite);
     pokemonDiv.setAttribute('data-pokemonId', pokemonId);
     pokemonDiv.setAttribute('data-weight', pokemonWeight);
+    pokemonDiv.setAttribute('data-type1', pokemonType1);
+    pokemonDiv.setAttribute('data-type2', pokemonType2);
+    pokemonDiv.setAttribute('data-gradient1', colorHexa1);
+    pokemonDiv.setAttribute('data-gradient2', colorHexa2);
     pokemonDivInside.append(pokemonImg);
-    pokemonDivInside.append(pokemonBackImg);
-    pokemonDivInside.innerHTML += '<p>#'+ pokemonId + ' ' + pokemonName + '</p>';
-    pokemonDivInside.innerHTML += '<p>'+ pokemonWeight + 'kg</p>';
+    pokemonDivInside.innerHTML += '<p style="text-shadow: black 0px 0px 5px;">#'+ pokemonId + ' ' + pokemonName + '</p>';
+    pokemonDivInside.innerHTML += '<p style="text-shadow: black 0px 0px 5px;">'+ pokemonWeight + 'kg</p>';
     pokemonDiv.append(pokemonDivInside);
     pokemonDiv.innerHTML += pokemonType;
     /* Only for create team page */
     if(window.location.hash == '#/my-team/add'){
-          pokemonDiv.innerHTML += '<label><input type="checkbox" onClick="addPokemonToTeam(this)" data-id="' + pokemons[i].id +'" id="checkbox-' + pokemons[i].id + '"/><span>Ajouter</span></label>';
+          pokemonDiv.innerHTML += '<label style="text-shadow: green 0px 0px 5px;"><input type="checkbox" onClick="addPokemonToTeam(this)" data-id="' + pokemons[i].id +'" id="checkbox-' + pokemons[i].id + '"/><span>Ajouter</span></label>';
     }else{
         let acceder = document.createElement("button");
     pokemonDiv.innerHTML += '<button class="btn" onClick="redirectToDetails(' + pokemons[i].id +')">Détails</button>';
@@ -78,7 +123,15 @@ for(i = 0; i < results.length; i++) {
     pokemonsDiv[i] = pokemonDiv;
     divPokemons.append(pokemonDiv);
 }
+var allPokemon = document.querySelectorAll('div .pkmn');
 
+for (d = 0; d < allPokemon.length; d++) {
+  if (allPokemon[d].getAttribute('data-type2') != "") {
+    gradient1 = allPokemon[d].getAttribute('data-gradient1');
+    gradient2 = allPokemon[d].getAttribute('data-gradient2');
+    allPokemon[d].style.background = "linear-gradient(45deg, " + gradient1 + " 50%, " + gradient2 + " 50%)";
+  }
+}
   }
 
       //Ecouter l'événement.
