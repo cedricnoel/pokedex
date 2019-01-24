@@ -115,7 +115,7 @@ for(i = 0; i < results.length; i++) {
     pokemonDiv.append(pokemonDivInside);
     pokemonDiv.innerHTML += pokemonType;
     /* Only for create team page */
-    pokemonDiv.innerHTML += '<p><label><input type="checkbox" onClick="addPokemonToTeam(this)" data-id="' + pokemons[i].id +'" id="checkbox-' + pokemons[i].id + '"/><span>Ajouter</span></label></p>';
+    pokemonDiv.innerHTML += '<p style="text-shadow: green 0px 0px 5px;"><label><input type="checkbox" onClick="addPokemonToTeam(this)" data-id="' + pokemons[i].id +'" id="checkbox-' + pokemons[i].id + '"/><span>Ajouter</span></label></p>';
     pokemonDiv.innerHTML += '<hr>'; 
     pokemonsDiv[i] = pokemonDiv;
     

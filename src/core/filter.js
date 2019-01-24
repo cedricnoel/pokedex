@@ -39,7 +39,7 @@ for(i = 0; i < results.length; i++) {
     }
 }
 
-typeSpan = document.createElement('button');
+typeSpan = document.createElement('p');
 typeSpan.className = 'btn waves-effect waves-light';
 typeSpan.innerHTML = 'All';
 typeSpan.onclick = function()
@@ -76,4 +76,5 @@ for(i = 0; i < 20; i++) {
         }
     }
     divTypes.append(typeSpan);
+    divTypes.innerHTML += "<br>";
 }
