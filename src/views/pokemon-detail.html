@@ -1,9 +1,49 @@
-{{app.name}} - <span class="badge badge-primary">{{app.id}}</span>
-<img src="{{app.sprites.front_default}}" alt="">
-{{app.stats[0].base_stat}}
-{{app.stats[3].base_stat}}
+  <div class="row card-details">
+    <div class="col s12 m3 offset-m5">
+      <div class="card">
+        <div class="card-image">
+          <div class="card-pokemon-container">
+          	<img src="{{app.sprites.front_default}}" alt="">
+          <img src="{{app.sprites.back_default}}" alt="">
+          </div>
+          <span class="card-title teal-text">{{app.name}}</span>
+        </div>
+        <hr>
+        <div class="card-content">
+        <div class="row">
+        		<div class="col s6">
+        		height : <span class="new badge" data-badge-caption=" ">{{app.height}}</span>
+        	</div>
+        	<div class="col s6">
+        		weight : <span class="new badge" data-badge-caption=" ">{{app.weight}}</span>
+        	</div>
+        </div>
+                <div class="row">
+        		<div class="col s6">
+        		Type 1 : <span class="new badge" data-badge-caption=" ">{{app.types[0].type.name}}</span>
+        	</div>
+        	<div class="col s6" id="type2">
+        		Type 2 : <span class="new badge" data-badge-caption=" ">{{app.types[1].type.name}}</span>
+        	</div>
+        </div>
 
-<hr>
-{{app.game_indices[0].version.name}}
+        <div class="row">
+     			<div class="col s6">
+        		Ability 1 : <span class="new badge pink darken-1" data-badge-caption=" ">{{app.abilities[0].ability.name}}</span>
+        	</div>
+        	<div class="col s6" id="ability2">
+        		Ability 2 : <span class="new badge pink darken-1" data-badge-caption=" ">{{app.abilities[1].ability.name}}</span>
+        	</div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+            
 
-<button onclick="router.navigate('/home/')">Go Home</button>
+<script>
+	if(app.types.length <= 1){
+		document.getElementById("type2").style.display = "none";
+	}
+	
+</script>

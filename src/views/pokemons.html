@@ -1,0 +1,17 @@
+<div class="container center-text">
+    <h1>Pokédex</h1>
+    <input type="text" id="pokemonName" onkeyup="filter()" placeholder="Rechercher un Pokémon">
+    <div class="row">
+            <div class="col s2">
+                    <div id="types"></div>
+                    <div id="sort"></div>
+                </div>
+                <div class="col s10">
+                    <div id="pokemons-loading">Loading ...</div>
+                    <div id="pokemons-content" class="center-text"></div>
+                </div>
+    </div>
+</div>
+<script src="../src/core/app.js"></script>
+<script src="../src/core/filter.js"></script>
+<script src="../src/core/sort.js"></script>
