@@ -22,6 +22,8 @@ class Team{
                 localStorage.setItem("team-"+this.name, JSON.stringify(this));
                 error.innerHTML = "";
                 console.log(this.name + " has been added");
+                M.toast({html: this.name + " has been added"})
+                    router.navigate('/my-team/');
             }else{
                 error.innerHTML = this.name + " already exist !";
                 console.log(this.name + " already exist !");

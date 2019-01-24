@@ -9,10 +9,17 @@ class pokemon {
     addPokemonToLocalStorage() {
         if (!localStorage.getItem("pokemon-" + this.name)) {
             localStorage.setItem("pokemon-" + this.name, JSON.stringify(this));
-            error.innerHTML = "";
+            M.toast({html: this.name + " has been added"});
             console.log(this.name + " has been added");
+            document.getElementsByName('name')[0].value = "";
+            document.getElementsByName("type")[0].value = "";
+            document.getElementById("image").files = null;
+            document.getElementById("image").value = null;
+            document.getElementById("file-path validate").value = null;
+             console.log( document.getElementById("image").value);
+             router.navigate('/my-pokemon/');
         } else {
-            error.innerHTML = this.name + " already exist !";
+            M.toast({html: this.name + " already exist !"});
             console.log(this.name + " already exist !");
         }
     }
@@ -77,13 +84,15 @@ if (document.getElementById("my-pokemons")) {
 
 function getPokemonsFromLocalStorage() {
     var root = document.getElementById("my-pokemons");
+    let count = 0;
     var ul = document.createElement("ul");
     for (var a in localStorage) {
         if (a.indexOf("pokemon") > -1) {
+            count++;
             var li = document.createElement("li");
 
             var div = document.createElement("div");
-            div.classList.add('card');
+            div.className += "card col s4";
 
             var divCardImage = document.createElement("div");
             divCardImage.classList.add('card-image');
@@ -103,11 +112,13 @@ function getPokemonsFromLocalStorage() {
             var delete_button = document.createElement("a");
 
             delete_button.innerHTML = "Supprimer";
-            //delete_button.className += " btn btn-danger";
+            delete_button.className += " btn red";
             delete_button.addEventListener("click", function () {
+
                 if (localStorage.getItem("pokemon-" + pokemon.name)) {
+                    div.style.display = "none";
                     localStorage.removeItem("pokemon-" + pokemon.name);
-                    location.reload();
+                    M.toast({html: pokemon.name + " has been deleted"});
                 }
             });
 
@@ -130,6 +141,13 @@ function getPokemonsFromLocalStorage() {
             li.append(div);
             ul.append(li);
         }
+    }
+    if(count <= 0){
+        let empty = document.createElement("li");
+        let p = document.createElement("p");
+        p.innerHTML = "Aucun pokemon";
+        empty.append(p);
+        ul.append(empty);
     }
     root.append(ul);
 }
