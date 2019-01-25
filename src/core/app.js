@@ -1,55 +1,21 @@
+    var pokemons = {};
+    var pokemonsDiv = [];
+
     build();
     function build(){
+        var divPokemons = document.getElementById('pokemons-content');
+        
         var request = new XMLHttpRequest();
         var loading = document.getElementById("pokemons-loading");
         loading.style.display = "block";
         request.open('GET', 'https://pokeapi.co/api/v2/pokemon?limit=151', /* async = */ false);
         request.send();
+
         var response = JSON.parse(request.response);
         var results = response.results;
-        pokemons = {};
-        var divPokemons = document.getElementById('pokemons-content');
-        var pokemonsDiv = [];
-        var colorTypes = [
-        {'type' : 'normal', 'color': 'brown lighten-5', 'hexa' : '#efebe9'},
-        {'type' : 'fighting', 'color': 'deep-orange accent-4', 'hexa' : '#dd2c00'},
-        {'type' : 'flying', 'color': 'deep-purple accent-1', 'hexa' : '#b388ff'},
-        {'type' : 'poison', 'color': 'deep-purple accent-3', 'hexa' : '#651fff'},
-        {'type' : 'rock', 'color': 'brown lighten-1', 'hexa' : '#8d6e63'},
-        {'type' : 'ground', 'color': 'brown lighten-1', 'hexa' : '#8d6e63'},
-        {'type' : 'bug', 'color': 'lime', 'hexa' : '#cddc39'},
-        {'type' : 'ghost', 'color': 'indigo lighten-2', 'hexa' : '#7986cb'},
-        {'type' : 'steel', 'color': 'blue-grey lighten-2', 'hexa' : '#90a4ae'},
-        {'type' : 'fire', 'color': 'orange', 'hexa' : '#ff9800'},
-        {'type' : 'water', 'color': 'blue', 'hexa' : '#2196f3'},
-        {'type' : 'grass', 'color': 'green', 'hexa' : '#4caf50'},
-        {'type' : 'eletric', 'color': 'yellow', 'hexa' : '#ffeb3b'},
-        {'type' : 'psychic', 'color': 'purple accent-1', 'hexa' : '#9c27b0'},
-        {'type' : 'ice', 'color': 'cyan lighten-4', 'hexa' : '#b2ebf2'},
-        {'type' : 'dragon', 'color': 'indigo accent-4', 'hexa' : '#304ffe'},
-        {'type' : 'dark', 'color': 'grey darken-4', 'hexa' : '#212121'},
-        {'type' : 'fairy', 'color': 'pink accent-1', 'hexa' : '#ff80ab'},
-        {'type' : 'unknown', 'color': 'deep-orange accent-4', 'hexa' : '#ffebee'},
-        {'type' : 'shadow', 'color': 'black', 'hexa' : '#000000'},
-        ];
+        var colorTypes = getColorsType();
 
-        for(i = 0; i < results.length; i++) {
-         pokemons[i] = {};
-         pokemons[i]['name'] = results[i].name;
-
-         pokemon = request.open('GET', 'https://pokeapi.co/api/v2/pokemon/' + results[i].name +'/', false);
-         request.send();
-         pokemon = JSON.parse(request.response);
-         pokemons[i]['id'] = pokemon.id;
-         pokemons[i]['sprite_front_url'] = pokemon.sprites.front_default;
-         pokemons[i]['sprite_back_url'] = pokemon.sprites.back_default;
-         pokemons[i]['type'] = pokemon.types;
-         if(i == results.length -1){
-          loading.style.display = "none";
-      }
-      pokemons[i]['weight'] = pokemon.weight;
-      pokemons[i]['id'] = pokemon.id;
-  }
+        putPokemonData(results, pokemons, loading, request);
 
   for(i = 0; i < results.length; i++) {
     colorClass1 = 'yellow';
@@ -172,4 +138,60 @@ function getAllElementsWithAttribute(attribute)
         }
     }
     return matchingElements;
+}
+
+function getColorsType()
+{
+    var colorTypes = [
+        {'type' : 'normal', 'color': 'brown lighten-5', 'hexa' : '#efebe9'},
+        {'type' : 'fighting', 'color': 'deep-orange accent-4', 'hexa' : '#dd2c00'},
+        {'type' : 'flying', 'color': 'deep-purple accent-1', 'hexa' : '#b388ff'},
+        {'type' : 'poison', 'color': 'deep-purple accent-3', 'hexa' : '#651fff'},
+        {'type' : 'rock', 'color': 'brown lighten-1', 'hexa' : '#8d6e63'},
+        {'type' : 'ground', 'color': 'brown lighten-1', 'hexa' : '#8d6e63'},
+        {'type' : 'bug', 'color': 'lime', 'hexa' : '#cddc39'},
+        {'type' : 'ghost', 'color': 'indigo lighten-2', 'hexa' : '#7986cb'},
+        {'type' : 'steel', 'color': 'blue-grey lighten-2', 'hexa' : '#90a4ae'},
+        {'type' : 'fire', 'color': 'orange', 'hexa' : '#ff9800'},
+        {'type' : 'water', 'color': 'blue', 'hexa' : '#2196f3'},
+        {'type' : 'grass', 'color': 'green', 'hexa' : '#4caf50'},
+        {'type' : 'eletric', 'color': 'yellow', 'hexa' : '#ffeb3b'},
+        {'type' : 'psychic', 'color': 'purple accent-1', 'hexa' : '#9c27b0'},
+        {'type' : 'ice', 'color': 'cyan lighten-4', 'hexa' : '#b2ebf2'},
+        {'type' : 'dragon', 'color': 'indigo accent-4', 'hexa' : '#304ffe'},
+        {'type' : 'dark', 'color': 'grey darken-4', 'hexa' : '#212121'},
+        {'type' : 'fairy', 'color': 'pink accent-1', 'hexa' : '#ff80ab'},
+        {'type' : 'unknown', 'color': 'deep-orange accent-4', 'hexa' : '#ffebee'},
+        {'type' : 'shadow', 'color': 'black', 'hexa' : '#000000'},
+        ];
+
+        return colorTypes;
+}
+
+function getPokemon(request, pokemonName)
+{
+    pokemon = request.open('GET', 'https://pokeapi.co/api/v2/pokemon/' + pokemonName +'/', false);
+    request.send();
+    pokemon = JSON.parse(request.response);
+
+    return pokemon;
+}
+
+function putPokemonData(results, pokemons, loading, request)
+{
+    for(i = 0; i < results.length; i++) {
+        pokemons[i] = {};
+        pokemons[i]['name'] = results[i].name;
+
+        pokemon = getPokemon(request, results[i].name);
+        pokemons[i]['id'] = pokemon.id;
+        pokemons[i]['sprite_front_url'] = pokemon.sprites.front_default;
+        pokemons[i]['sprite_back_url'] = pokemon.sprites.back_default;
+        pokemons[i]['type'] = pokemon.types;
+        if (i == results.length - 1) {
+        loading.style.display = "none";
+        }
+        pokemons[i]['weight'] = pokemon.weight;
+        pokemons[i]['id'] = pokemon.id;
+    }
 }
