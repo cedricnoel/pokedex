@@ -24,7 +24,7 @@ var colorTypes = [
     {'type' : 'steel', 'color': 'blue-grey lighten-2', 'hexa' : '#90a4ae'},
     {'type' : 'fire', 'color': 'orange', 'hexa' : '#ff9800'},
     {'type' : 'water', 'color': 'blue', 'hexa' : '#2196f3'},
-    {'type' : 'grass', 'color': 'green', 'hexa' : '14caf50'},
+    {'type' : 'grass', 'color': 'green', 'hexa' : '#4caf50'},
     {'type' : 'eletric', 'color': 'yellow', 'hexa' : '#ffeb3b'},
     {'type' : 'psychic', 'color': 'purple accent-1', 'hexa' : '#9c27b0'},
     {'type' : 'ice', 'color': 'cyan lighten-4', 'hexa' : '#b2ebf2'},
@@ -97,7 +97,6 @@ for(i = 0; i < results.length; i++) {
     pokemonBackImg.src = pokemonBackSprite;
     pokemonImg.src = pokemonFrontSprite;
     pokemonDiv.className = "col s4 pkmn " + colorClass1 + " lighten-5 waves-effect white-text center-text";
-    //pokemonsDiv.style.background = "background: black";
     pokemonDiv.id = pokemonName;
     pokemonDiv.setAttribute('data-back', pokemonBackSprite);
     pokemonDiv.setAttribute('data-front', pokemonFrontSprite);
