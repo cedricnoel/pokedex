@@ -1,4 +1,6 @@
-var request = new XMLHttpRequest();
+buildTypes();
+function buildTypes(){
+    var request = new XMLHttpRequest();
 request.open('GET', 'https://pokeapi.co/api/v2/type', /* async = */ false);
 request.send();
 var pokemonsDiv = document.querySelectorAll('div .pkmn');
@@ -77,3 +79,11 @@ for(i = 0; i < 20; i++) {
     }
     divTypes.append(typeSpan);
 }
+}
+
+      document.addEventListener('route-change', function (e) { 
+        console.log(e);
+        if(document.getElementById("types")){
+           buildTypes();
+       }
+   }, false);
