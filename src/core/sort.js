@@ -1,4 +1,6 @@
-var sort = {};
+buildSort();
+function buildSort(){
+        var sort = {};
 var divSort = document.getElementById('sort');
 var divPokemons = document.getElementById('pokemons-content');
 var pokemonsDiv = document.querySelectorAll('div .pkmn');
@@ -57,3 +59,13 @@ spanPknId.onclick = function()
         }
     }
 divSort.append(spanPknId);
+}
+
+
+
+      document.addEventListener('route-change', function (e) { 
+        console.log(e);
+        if(document.getElementById("sort")){
+           buildSort();
+       }
+   }, false);
